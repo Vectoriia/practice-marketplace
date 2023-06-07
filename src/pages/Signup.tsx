@@ -4,8 +4,10 @@ import '../index';
 import {Link} from 'react-router-dom';
 import { StyledTextField } from '../components/StyledTextField';
 import {StyledButton} from '../components/StyledButton';
-import loginImage from "../images/pexels-karolina-grabowska-4466208 копія 1.png";
-import { Formik, Form, useFormik  } from 'formik';
+import { ImageButton } from '../components/ImageButton';
+import signupImage from "../images/pexels-karolina-grabowska-4466208 копія 2.png";
+import cross from "../images/Vector.png";
+import {useFormik  } from 'formik';
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
@@ -67,34 +69,42 @@ export default function SignupPage() {
   });
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <img className="" src={loginImage}  alt="background"/>
-      <div className="mb-10">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign Up
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600 mt-5">
-          Just a few quick steps to create your account
-        </p>
+    <div className="max-w-max mx-auto overflow-hidden md:max-w-full flex">
+      <div className="w-2/5">
+        <img className="h-52 w-auto md:h-full" src={signupImage}  alt="background"/>
+      </div>
+      <div className="flex flex-col items-center md:w-3/5">
+        <div className="flex flex-col h-full justify-center md:w-[495px]">
+          <h2 className="mt-6 text-left text-3xl font-almarai text-gray-700 font-bold">
+              Sign Up
+          </h2>
+          <p className="mt-[8px] text-left text-sm font-almarai text-gray-400 mt-5">
+            Just a few quick steps to create your account
+          </p>
+          <div className='flex flex-row justify-between mt-[34px]'>
+            <StyledTextField
+              placeholder="First Name"
+              className = "md:w-[240px]"
+              onChange={(e) => formik.setFieldValue('firstName', e.target.value)}
+              value={formik.values.firstName}
+              type ="default"
+            />
+            <StyledTextField
+              placeholder="Last Name"
+              className = "md:w-[240px]"
+              onChange={(e) => formik.setFieldValue('lastName', e.target.value)}
+              value={formik.values.lastName}
+              type ="default"
+            />
+          </div>
+            {formik.errors.firstName && formik.touched.firstName ? (
+            <div>{formik.errors.firstName}</div>
+            ) : null}
+            {formik.errors.lastName && formik.touched.lastName ? (
+            <div>{formik.errors.lastName}</div>
+            ) : null}
           <StyledTextField
-            placeholder="First Name"
-            onChange={(e) => formik.setFieldValue('firstName', e.target.value)}
-            value={formik.values.firstName}
-            type ="default"
-          />
-          {formik.errors.firstName && formik.touched.firstName ? (
-          <div>{formik.errors.firstName}</div>
-          ) : null}
-          <StyledTextField
-            placeholder="Last Name"
-            onChange={(e) => formik.setFieldValue('lastName', e.target.value)}
-            value={formik.values.lastName}
-            type ="default"
-          />
-          {formik.errors.lastName && formik.touched.lastName ? (
-          <div>{formik.errors.lastName}</div>
-          ) : null}
-          <StyledTextField
+            className = "mt-[15px]"
             placeholder="Email"
             onChange={(e) => formik.setFieldValue('email', e.target.value)}
             value={formik.values.email}
@@ -104,6 +114,7 @@ export default function SignupPage() {
           <div>{formik.errors.email}</div>
           ) : null}
           <StyledTextField
+            className = "mt-[15px]"
             placeholder="Password"
             onChange={(e) => formik.setFieldValue('password', e.target.value)}
             value={formik.values.password}
@@ -111,20 +122,27 @@ export default function SignupPage() {
           />
           {formik.errors.password && formik.touched.password ? <div>{formik.errors.password}</div> : null}
           <StyledTextField
+            className = "mt-[15px]"
             placeholder="Confirm password"
             onChange={(e) => formik.setFieldValue('passwordConfirm', e.target.value)}
             value={formik.values.passwordConfirm}
             type ="password"
           />
           {formik.errors.passwordConfirm && formik.touched.passwordConfirm ? <div>{formik.errors.passwordConfirm}</div> : null}
-          <StyledButton text='Next' type = "submit" handleClick={formik.handleSubmit}/>
-          <p className="mt-2 text-center text-sm text-gray-600 mt-5">
+          <StyledButton text='Next' type = "submit" handleClick={formik.handleSubmit} className='md:h-14' marginTop='34px'/>
+        </div>
+        <div className='flex flex-col'>
+          <p className="mt-2 text-center text-sm text-gray-600 ">
             Back to {' '}
-            <Link to="/" className="font-medium text-green-600 hover:text-green-500">
+            <Link to="/signin" style={{color:'#3BBEB6'}} className="font-medium text-green-600 hover:text-green-500">
                 Login
             </Link>
           </p>
+        </div>
       </div>
+      <ImageButton handleClick={()=>{
+        console.log('window closed');
+      }} alt='cross' src={cross} className='absolute top-[40px] right-[40px] h-[12px] w-[12px]'/>
     </div>
   );
 }

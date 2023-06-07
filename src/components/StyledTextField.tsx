@@ -8,13 +8,15 @@ interface Props {
   placeholder: string;
   value: string;
   type: string;
+  className?: string;
 }
 
 export const StyledTextField: FC<Props> = ({
-   onChange, // { name, value, onChange, onBlur }
+   onChange, 
    placeholder,
    value,
    type,
+   className,
    ...props
  }) => (
      <TextField
@@ -22,19 +24,21 @@ export const StyledTextField: FC<Props> = ({
           placeholder= {placeholder}
           value={value}
           onChange={onChange}
-          fullWidth
           type={type}
           sx={{border: 'none'}}
-          InputProps={{ sx: {
-            borderRadius: '40px', 
-            backgroundColor: '#A8ACB81A', 
-            borderColor: '#A8ACB81A',
-            'fieldset': {
-              border: 'none',
+          InputProps={{ 
+            sx: {
+              borderRadius: '40px', 
+              backgroundColor: '#A8ACB81A', 
+              borderColor: '#A8ACB81A',
+              'fieldset': {
+                border: 'none',
+              },
+              '&:hover fieldset': {
+                border: 'none',
+              },
             },
-            '&:hover fieldset': {
-              border: 'none',
-            },
-          }}}
+            className: className,
+          }}
         />
  );
