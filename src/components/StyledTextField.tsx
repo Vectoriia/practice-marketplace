@@ -25,12 +25,12 @@ export const StyledTextField: FC<Props> = ({
           value={value}
           onChange={onChange}
           type={type}
-          sx={{border: 'none'}}
           InputProps={{ 
             sx: {
               borderRadius: '40px', 
               backgroundColor: '#A8ACB81A', 
               borderColor: '#A8ACB81A',
+              border: 'none',
               'fieldset': {
                 border: 'none',
               },

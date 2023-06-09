@@ -4,17 +4,21 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
+import HomePage from './pages/HomePage';
 function App() {
   return (
-    <div className="min-h-full h-screen flex items-center justify-center py-2 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-full h-screen flex ">
       <div className="w-full">
         <BrowserRouter>
             <Routes>
                 <Route path="/signin" element={<LoginPage/>} />
                 <Route path="/signup" element={<SignupPage/>} />
+                <Route path="/home-page" element={<HomePage/>} />
+                <Route path="*" element={<Navigate to="/home-page" replace />} />
             </Routes>
           </BrowserRouter>
       </div>

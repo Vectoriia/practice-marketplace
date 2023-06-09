@@ -8,6 +8,8 @@ import { ImageButton } from '../components/ImageButton';
 import loginImage from "../images/pexels-karolina-grabowska-4466208 копія 1.png";
 import cross from "../images/Vector.png";
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+
 import * as Yup from 'yup';
 
 const LoginSchema = Yup.object().shape({
@@ -43,10 +45,10 @@ export default function LoginPage() {
     validateOnChange: true,
   });
   
-  console.log(formik.values, formik.errors);
+  const navigate = useNavigate();
 
   return (
-    <div className="max-w-max mx-auto overflow-hidden md:max-w-full flex">
+    <div className="max-w-max mx-auto overflow-hidden md:max-w-full flex py-2 px-4 sm:px-6 lg:px-8">
       <div className="w-3/5">
         <img className="h-52 w-52 md:w-full md:h-full" src={loginImage}  alt="background"/>
       </div>
@@ -89,6 +91,7 @@ export default function LoginPage() {
       </div>
       <ImageButton handleClick={()=>{
         console.log('window closed');
+        navigate('/home-page');
       }} alt='cross' src={cross} className='absolute top-[40px] right-[40px] h-[12px] w-[12px]'/>
     </div>
   );
