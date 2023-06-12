@@ -13,6 +13,8 @@ import linkupLogo from "../images/logo.png";
 import searchIcon from "../images/Search.png";
 import cartIcon from "../images/Cart.png";
 import { useNavigate } from 'react-router-dom';
+import { ChangeEventHandler, FC } from "react";
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: "40px",
@@ -53,12 +55,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-export default function Header() {
+interface Props {
+  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+}
+export const Header: FC<Props> = ({
+    handleChange,
+  })=> {
   const navigate = useNavigate();
   return (
-    <div className="">
-      <AppBar position="sticky" sx={{backgroundColor:"white"}}>
+    <div className="sticky top-0 z-40">
+      <AppBar position="static" sx={{backgroundColor:"white"}}>
         <Toolbar>
           <img className='w-[48px] h-[48px]' src={linkupLogo} />
           <Search>
@@ -68,6 +74,7 @@ export default function Header() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleChange}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
