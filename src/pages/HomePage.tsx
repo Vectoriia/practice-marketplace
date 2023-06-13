@@ -4,13 +4,18 @@ import {Header} from '../components/Header';
 import ImageCarousell from '../components/Carousel';
 import {CategoryScroll} from '../components/CategoryScroll';
 import ProductGrid from '../components/ProductGrid';
-import {StyledIconButton} from '../components/StyledIconButton'
-interface ProductInfo{
+import {StyledIconButton} from '../components/StyledIconButton';
+import {CartModal} from '../modals/CartModal'
+export interface ProductInfo{
   id: number,
   name: string,
   price: number,
   soldCount: number,
   imageURL: string, 
+}
+export interface CartItemInfo{
+  product: ProductInfo,
+  count: number,
 }
 
 export default function HomePage(){
@@ -21,8 +26,9 @@ export default function HomePage(){
   const [products, setProducts] = useState<ProductInfo[]>([]);
   let PageSize: number = 10;
 
-  const [Cart, setCart] = useState<ProductInfo[]>([]);
-
+  const [cart, setCart] = useState<CartItemInfo[]>([]);
+  const [cartPrice, setCartPrice] = useState(0);
+  const [openCart, setOpenCart] = useState(false);
   function handleCategoryChange(id:number){
     setCategoryId(id);
   }
@@ -32,28 +38,50 @@ export default function HomePage(){
   const handlePageNumberChange = (page:number) => {
     setPageNumber(page);
   }
-  function handleCartChange(currentCart:ProductInfo[]){
-    setCart(currentCart);
-  }
   function cartDelete(id: number){
-    const index = Cart.findIndex(element => element.id == id);
+    const index = cart.findIndex(element => element.product.id == id);
     if (index >= 0) {
 
-      let tmpCart = [...Cart];
+      let tmpCart = [...cart];
       tmpCart.splice(index, 1);
 
       setCart(tmpCart);
     }
-    
-    console.log("delete "+id);
   }
   function cartAdd(id: number){
-    const tempObj = products.find(element => element.id == id);
+    const tempObj =  products.find(element => element.id == id);
     if (tempObj != undefined) {
-      setCart([...Cart, tempObj])
+      setCart([...cart, {product: tempObj, count:1}])
     }
-    console.log("add "+id);
   }
+  function cartItemCountModify(id: number, operator: number){
+    const index = cart.findIndex(element => element.product.id == id);
+    if (index >= 0) {
+      let tmpCart = [...cart];
+      if(tmpCart[index].count + operator == 0){
+        cartDelete(id)
+      }else{
+        tmpCart[index].count = tmpCart[index].count + operator;
+        setCart(tmpCart);
+      }
+    }
+  }
+  const handleCartOpen = () => {
+    setOpenCart(true);
+  };
+  const handleCartClose = () => {
+    setOpenCart(false);
+  };
+  function countCartPrice(){
+    let sum = 0;
+    cart.forEach(element => {
+      sum += element.product.price * element.count;
+    });
+    setCartPrice(sum);
+  }
+  useEffect(()=>{
+    countCartPrice();
+  },[cart]);
   useEffect(() => {
     setPageNumber(1);
     const api = async () => {
@@ -82,17 +110,18 @@ export default function HomePage(){
     api();
   }, [PageNumber]);
 
-  console.log(Cart);
+  console.log(cart);
 
   return(
     <>
-      <Header handleChange={handleSearchChange} cartAmount={Cart.length}/>
+      <Header handleSearchChange={handleSearchChange} cartAmount={cart.length} handleCartOpen={handleCartOpen}/>
       <ImageCarousell/>
       <h1>Categories</h1>
       <CategoryScroll handleClick={handleCategoryChange}/>
       <h1>All products</h1>
-      <ProductGrid products={products} cart = {Cart} handleCartChange={handleCartChange} cartAdd={cartAdd} cartDelete = {cartDelete}/>
+      <ProductGrid products={products} cart = {cart} cartAdd={cartAdd} cartDelete = {cartDelete}/>
       {(hasNextPage)?<StyledIconButton type='button' handleClick={()=>{handlePageNumberChange(PageNumber+1)}} text={"View more products"}/>:null}
+      <CartModal handleCartClose={handleCartClose} isOpen = {openCart} cart={cart} cartItemCountModify={cartItemCountModify} cartDelete={cartDelete} cartPrice={cartPrice}/>
     </>
   );
 }
