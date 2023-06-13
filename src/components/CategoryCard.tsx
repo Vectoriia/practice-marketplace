@@ -9,26 +9,24 @@ interface Props {
   handleClick(): void;
   text: string;
   imageSrc: string;
+  isActive: boolean;
 }
-export const CategoryCard: FC<Props> = ({
-   handleClick,
-   text,
-   imageSrc,
-   ...props
- }) => (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={handleClick}>
+export default function CategoryCard (props:Props){
+  return(
+    <Card sx={{ maxWidth: 345, color: props.isActive?"#37AFA8":"black" }}>
+      <CardActionArea onClick={props.handleClick}>
         <CardMedia
           component="img"
           height="140"
-          image={imageSrc}
-          alt={text}
+          image={props.imageSrc}
+          alt={props.text}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {text}
+            {props.text}
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
-);
+    );
+}

@@ -4,50 +4,58 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { CardActionArea, CardActions  } from '@mui/material';
-import { FC } from "react";
+import { useState } from 'react';
 interface Props {
-  handleClick(): void;
+  handleCardClick(): void;
   name: string;
   itemSold: number;
   price: number;
   imageSrc: string;
   id: number;
+  isInCart: boolean;
+  cartAdd(id:number): void;
+  cartDelete(id:number): void;
 }
-export const ProductCard: FC<Props> = ({
-   handleClick,
-   name,
-   itemSold,
-   price,
-   imageSrc,
-   id,
-   ...props
- }) => (
+export default function ProductCard(props:Props)
+{
+  function handleCartChange(){
+    if(props.isInCart){
+      props.cartDelete(props.id);
+    }else{
+      props.cartAdd(props.id);
+    }
+  }
+  return(
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea onClick={props.handleCardClick}>
         <CardMedia
           component="img"
           height="140"
-          image={imageSrc}
-          alt={name}
+          image={props.imageSrc}
+          alt={props.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {name}
+            {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {itemSold} {' '} sold
+            {props.itemSold} {' '} sold
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            ${price}
+            ${props.price}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton aria-label="play/pause">
-          <PlayArrowIcon sx={{ height: 38, width: 38 }} />
+        <IconButton aria-label="play/pause" onClick={handleCartChange}>
+          {props.isInCart?
+            <CheckCircleIcon sx={{ height: 38, width: 38, color:"black" }} />
+            :<AddCircleIcon sx={{ height: 38, width: 38, color:"black" }} />}
         </IconButton>
       </CardActions>
     </Card>
-);
+  );
+}

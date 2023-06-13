@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {CategoryCard} from './CategoryCard';
+import CategoryCard from './CategoryCard';
 import { useState, useEffect } from 'react';
 import { FC } from "react";
 import Category1 from "../images/Category40.png";
@@ -26,7 +26,11 @@ export const CategoryScroll:FC<Props> = ({
   handleClick,
 })=>{
   const [result, setResult] = useState<categoryProps[]>([]);
-
+  const [currentCategory, setCategoryId] = useState(40);
+  function handleWrapper(id:number){
+    handleClick(id);
+    setCategoryId(id);
+  }
   useEffect(() => {
    const api = async () => {
       const data = await fetch("https://linkup-academy.herokuapp.com/api/v1/categories", {
@@ -36,13 +40,13 @@ export const CategoryScroll:FC<Props> = ({
       setResult(jsonData);
     };
     api();
-  }, []);
+  }, [currentCategory]);
   return(
     <div className='flex flex-row overflow-x-auto'>
         {result.map((value, index) => {
           return (
             <div key= {value.id}>
-              <CategoryCard handleClick ={()=>handleClick(value.id)} text = {value.name} imageSrc= {imageSrc[index]} />
+              <CategoryCard handleClick ={()=>handleWrapper(value.id)} text = {value.name} imageSrc= {imageSrc[index]} isActive={value.id==currentCategory}/>
             </div>
           );
         })}

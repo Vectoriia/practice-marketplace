@@ -36,8 +36,8 @@ interface ItemProps {
 }
 const Item: FC<ItemProps> = ({src, alt}) => {
     return (
-        <Paper>
-            <img src={src} alt = {alt} />
+        <Paper sx={{ border: 'none', boxShadow: "none"  }}>
+            <img className='rounded-[20px]' src={src} alt = {alt} />
         </Paper>
     );
 };
