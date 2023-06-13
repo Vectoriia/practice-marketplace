@@ -56,11 +56,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 interface Props {
-  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  handleSearchChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  handleCartOpen():void;
   cartAmount: number;
 }
 export const Header: FC<Props> = ({
-    handleChange,
+    handleSearchChange,
+    handleCartOpen,
     cartAmount,
   })=> {
   const navigate = useNavigate();
@@ -76,12 +78,12 @@ export const Header: FC<Props> = ({
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              onChange={handleChange}
+              onChange={handleSearchChange}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton aria-label="show amount of goods" color="inherit">
+            <IconButton aria-label="show amount of goods" color="inherit" onClick={handleCartOpen} >
               <Badge badgeContent={cartAmount} color="error">
                 <img className='w-[24px] h-[24px]' src={cartIcon} />
               </Badge>

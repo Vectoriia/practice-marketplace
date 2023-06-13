@@ -1,21 +1,13 @@
 import * as React from 'react';
-import ProductCard from './ProductCard';
+import {ProductCard} from './ProductCard';
 import { FC } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
-interface ProductInfo{
-  id: number,
-  name: string,
-  price: number,
-  soldCount: number,
-  imageURL: string, 
-}
+import { ProductInfo, CartItemInfo } from '../pages/HomePage';
 
 interface Props {
   products: ProductInfo[];
-  cart: ProductInfo[];
-  handleCartChange(cart: ProductInfo[]): void;
+  cart: CartItemInfo[];
   cartAdd(id:number): void;
   cartDelete(id:number): void;
 }
@@ -31,12 +23,8 @@ export default function ProductGrid(props:Props){
                 <div key= {value.id}>
                   <ProductCard 
                     handleCardClick ={()=>{/*naviagete to product page*/}}
-                    name={value.name} 
-                    itemSold = {value.soldCount} 
-                    price = {value.price}
-                    imageSrc = {value.imageURL}
-                    id = {value.id}
-                    isInCart={props.cart.findIndex(p => p.id == value.id) >= 0} 
+                    product = {value}
+                    isInCart={props.cart.findIndex(p => p.product.id == value.id) >= 0} 
                     cartAdd={props.cartAdd} 
                     cartDelete = {props.cartDelete}/>
                 </div>
