@@ -1,16 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import cross from "../images/Vector.png";
+import check from "../images/check.png";
 import { ImageButton } from '../components/ImageButton';
-import {StyledButton} from '../components/StyledButton';
 import { FC } from "react";
-import { CartItemInfo } from '../pages/HomePage';
-import {CartCard} from '../components/CartCard';
 const mainBoxStyle = {
   position: 'absolute',
+  alignItems: 'center',
   top: 0,
   right:0,
   width: '560px',
@@ -20,28 +18,20 @@ const mainBoxStyle = {
   boxShadow: 24,
 };
 const bottomBoxStyle = {
-  borderRadius: "50px 50px 0px 0px", 
+  borderRadius: "10px", 
   boxShadow:'0px 4px 24px rgba(0, 0, 0, 0.12)',
   height:'108px', 
   width: 'full',
 };
 interface Props {
-  handleCartClose():void;
-  handleCheckoutOpen():void;
+  handleCheckoutClose():void;
   isOpen: boolean;
-  cart: CartItemInfo[];
-  cartItemCountModify(id: number, operator: number):void;
-  cartDelete(id:number): void;
   cartPrice: number;
 }
 
-export const CartModal: FC<Props> = ({
-    handleCartClose,
-    handleCheckoutOpen,
+export const CheckoutModal: FC<Props> = ({
+    handleCheckoutClose,
     isOpen,
-    cart,
-    cartItemCountModify,
-    cartDelete,
     cartPrice,
   })=> {
 
@@ -49,43 +39,32 @@ export const CartModal: FC<Props> = ({
     <div>
       <Modal
         open = {isOpen}
-        onClose={handleCartClose}
+        onClose={handleCheckoutClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={mainBoxStyle}>
+          <img className = "h-[132px] w-[132px]" src ={check} />
           <div className='p-4'>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              My Cart
+              Congratulations!
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }} component="span">
-              <div className='flex flex-col space-y-[15px]'>
-                {cart.map((value, index) => {
-                  return (
-                    <div key= {value.product.id}>
-                      <CartCard 
-                        cartItemCountModify = {cartItemCountModify} 
-                        item = {value} 
-                        cartDelete = {cartDelete}/>
-                    </div>
-                  );
-                })}
-              </div>
+              Your order has successfully placed and started processing.
             </Typography>
           </div>
           <Box className="flex flex-row" sx={bottomBoxStyle}>
             <div>
               <Typography gutterBottom variant="h5" component="div">
-                ${cartPrice}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
                 Total Price
               </Typography>
+              <Typography variant="h5" sx={{color:"#3BBEB6"}}>
+                ${cartPrice}
+              </Typography>
             </div>
-            <StyledButton text='Checkout' type = "button" handleClick={handleCheckoutOpen} className='md:h-[54px]'/>
           </Box>
           <ImageButton handleClick={()=>{
-            handleCartClose();
+            handleCheckoutClose();
           }} alt='cross' src={cross} className='absolute top-[40px] right-[40px] h-[12px] w-[12px]'/>
         </Box>
       </Modal>
