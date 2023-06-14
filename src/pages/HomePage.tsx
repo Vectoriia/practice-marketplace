@@ -5,7 +5,8 @@ import ImageCarousell from '../components/Carousel';
 import {CategoryScroll} from '../components/CategoryScroll';
 import ProductGrid from '../components/ProductGrid';
 import {StyledIconButton} from '../components/StyledIconButton';
-import {CartModal} from '../modals/CartModal'
+import {CartModal} from '../modals/CartModal';
+import {CheckoutModal} from '../modals/CheckoutModal';
 export interface ProductInfo{
   id: number,
   name: string,
@@ -29,6 +30,7 @@ export default function HomePage(){
   const [cart, setCart] = useState<CartItemInfo[]>([]);
   const [cartPrice, setCartPrice] = useState(0);
   const [openCart, setOpenCart] = useState(false);
+  const [openCheckout, setOpenCheckout] = useState(false);
   function handleCategoryChange(id:number){
     setCategoryId(id);
   }
@@ -68,9 +70,20 @@ export default function HomePage(){
   }
   const handleCartOpen = () => {
     setOpenCart(true);
+    console.log("cart open")
   };
   const handleCartClose = () => {
     setOpenCart(false);
+    console.log("cart close")
+  };
+  const handleCheckoutOpen = () => {
+    setOpenCheckout(true);
+    handleCartClose();
+    console.log("check open")
+  };
+  const handleCheckoutClose = () => {
+    setOpenCheckout(false);
+    console.log("check close")
   };
   function countCartPrice(){
     let sum = 0;
@@ -121,7 +134,8 @@ export default function HomePage(){
       <h1>All products</h1>
       <ProductGrid products={products} cart = {cart} cartAdd={cartAdd} cartDelete = {cartDelete}/>
       {(hasNextPage)?<StyledIconButton type='button' handleClick={()=>{handlePageNumberChange(PageNumber+1)}} text={"View more products"}/>:null}
-      <CartModal handleCartClose={handleCartClose} isOpen = {openCart} cart={cart} cartItemCountModify={cartItemCountModify} cartDelete={cartDelete} cartPrice={cartPrice}/>
+      <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cart={cart} cartItemCountModify={cartItemCountModify} cartDelete={cartDelete} cartPrice={cartPrice}/>
+      <CheckoutModal handleCheckoutClose={handleCheckoutClose} isOpen = {openCheckout} cartPrice={cartPrice}/>
     </>
   );
 }
