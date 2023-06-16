@@ -9,6 +9,8 @@ import {StyledButton} from '../components/StyledButton';
 import { FC } from "react";
 import { CartItemInfo } from '../pages/HomePage';
 import {CartCard} from '../components/CartCard';
+import { useAppSelector } from '../redux/hooks';
+import { getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
 const mainBoxStyle = {
   position: 'absolute',
   top: 0,
@@ -29,22 +31,19 @@ interface Props {
   handleCartClose():void;
   handleCheckoutOpen():void;
   isOpen: boolean;
-  cart: CartItemInfo[];
   cartItemCountModify(id: number, operator: number):void;
   cartDelete(id:number): void;
-  cartPrice: number;
 }
 
 export const CartModal: FC<Props> = ({
     handleCartClose,
     handleCheckoutOpen,
     isOpen,
-    cart,
     cartItemCountModify,
     cartDelete,
-    cartPrice,
   })=> {
-
+  const cart = useAppSelector(selectCart);
+  const cartPrice = useAppSelector(getCartTotalPrice);
   return (
     <div>
       <Modal
@@ -62,7 +61,7 @@ export const CartModal: FC<Props> = ({
               <div className='flex flex-col space-y-[15px]'>
                 {cart.map((value, index) => {
                   return (
-                    <div key= {value.product.id}>
+                    <div key= {value.id}>
                       <CartCard 
                         cartItemCountModify = {cartItemCountModify} 
                         item = {value} 

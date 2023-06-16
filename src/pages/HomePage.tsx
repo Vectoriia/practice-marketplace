@@ -7,6 +7,8 @@ import ProductGrid from '../components/ProductGrid';
 import {StyledIconButton} from '../components/StyledIconButton';
 import {CartModal} from '../modals/CartModal';
 import {CheckoutModal} from '../modals/CheckoutModal';
+import { addItemToCart, deleteItemFromCart, editItemCount, getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 export interface ProductInfo{
   id: number,
   name: string,
@@ -14,9 +16,12 @@ export interface ProductInfo{
   soldCount: number,
   imageURL: string, 
 }
-export interface CartItemInfo{
-  product: ProductInfo,
-  count: number,
+export interface CartItemInfo extends ProductInfo{
+  amount: number,
+}
+interface EditItemProps{
+  id: number,
+  amount: number,
 }
 
 export default function HomePage(){
@@ -26,11 +31,11 @@ export default function HomePage(){
   const [hasNextPage, setHasNextPage] = useState(true);
   const [products, setProducts] = useState<ProductInfo[]>([]);
   let PageSize: number = 10;
-
-  const [cart, setCart] = useState<CartItemInfo[]>([]);
-  const [cartPrice, setCartPrice] = useState(0);
   const [openCart, setOpenCart] = useState(false);
   const [openCheckout, setOpenCheckout] = useState(false);
+  
+  const cart = useAppSelector(selectCart);
+  const dispatch = useAppDispatch();
   function handleCategoryChange(id:number){
     setCategoryId(id);
   }
@@ -41,60 +46,40 @@ export default function HomePage(){
     setPageNumber(page);
   }
   function cartDelete(id: number){
-    const index = cart.findIndex(element => element.product.id == id);
+    const index = cart.findIndex(element => element.id == id);
     if (index >= 0) {
-
-      let tmpCart = [...cart];
-      tmpCart.splice(index, 1);
-
-      setCart(tmpCart);
+      dispatch(deleteItemFromCart(cart[index]))
     }
   }
   function cartAdd(id: number){
     const tempObj =  products.find(element => element.id == id);
     if (tempObj != undefined) {
-      setCart([...cart, {product: tempObj, count:1}])
+      dispatch(addItemToCart({
+        id: tempObj.id, 
+        name: tempObj.name, 
+        price: tempObj.price, 
+        soldCount: tempObj.soldCount,
+        imageURL: tempObj.imageURL, 
+        amount: 1
+      }))
     }
   }
   function cartItemCountModify(id: number, operator: number){
-    const index = cart.findIndex(element => element.product.id == id);
-    if (index >= 0) {
-      let tmpCart = [...cart];
-      if(tmpCart[index].count + operator == 0){
-        cartDelete(id)
-      }else{
-        tmpCart[index].count = tmpCart[index].count + operator;
-        setCart(tmpCart);
-      }
-    }
+    dispatch(editItemCount({id, operator}));
   }
   const handleCartOpen = () => {
     setOpenCart(true);
-    console.log("cart open")
   };
   const handleCartClose = () => {
     setOpenCart(false);
-    console.log("cart close")
   };
   const handleCheckoutOpen = () => {
     setOpenCheckout(true);
     handleCartClose();
-    console.log("check open")
   };
   const handleCheckoutClose = () => {
     setOpenCheckout(false);
-    console.log("check close")
   };
-  function countCartPrice(){
-    let sum = 0;
-    cart.forEach(element => {
-      sum += element.product.price * element.count;
-    });
-    setCartPrice(sum);
-  }
-  useEffect(()=>{
-    countCartPrice();
-  },[cart]);
   useEffect(() => {
     setPageNumber(1);
     const api = async () => {
@@ -123,19 +108,17 @@ export default function HomePage(){
     api();
   }, [PageNumber]);
 
-  console.log(cart);
-
   return(
     <>
-      <Header handleSearchChange={handleSearchChange} cartAmount={cart.length} handleCartOpen={handleCartOpen}/>
+      <Header handleSearchChange={handleSearchChange} handleCartOpen={handleCartOpen}/>
       <ImageCarousell/>
       <h1>Categories</h1>
       <CategoryScroll handleClick={handleCategoryChange}/>
       <h1>All products</h1>
-      <ProductGrid products={products} cart = {cart} cartAdd={cartAdd} cartDelete = {cartDelete}/>
+      <ProductGrid products={products} cartAdd={cartAdd} cartDelete = {cartDelete}/>
       {(hasNextPage)?<StyledIconButton type='button' handleClick={()=>{handlePageNumberChange(PageNumber+1)}} text={"View more products"}/>:null}
-      <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cart={cart} cartItemCountModify={cartItemCountModify} cartDelete={cartDelete} cartPrice={cartPrice}/>
-      <CheckoutModal handleCheckoutClose={handleCheckoutClose} isOpen = {openCheckout} cartPrice={cartPrice}/>
+      <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cartItemCountModify={cartItemCountModify} cartDelete={cartDelete}/>
+      <CheckoutModal handleCheckoutClose={handleCheckoutClose} isOpen = {openCheckout}/>
     </>
   );
 }

@@ -4,15 +4,16 @@ import { FC } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { ProductInfo, CartItemInfo } from '../pages/HomePage';
+import { useAppSelector } from '../redux/hooks';
+import { selectCart } from '../redux/slices/cartSlice';
 
 interface Props {
   products: ProductInfo[];
-  cart: CartItemInfo[];
   cartAdd(id:number): void;
   cartDelete(id:number): void;
 }
 export default function ProductGrid(props:Props){ 
-
+  const cart = useAppSelector(selectCart);
   return(
     <div className='flex flex-row overflow-x-auto'>
       <Box sx={{ flexGrow: 1 }}>
@@ -24,7 +25,7 @@ export default function ProductGrid(props:Props){
                   <ProductCard 
                     handleCardClick ={()=>{/*naviagete to product page*/}}
                     product = {value}
-                    isInCart={props.cart.findIndex(p => p.product.id == value.id) >= 0} 
+                    isInCart={cart.findIndex(p => p.id == value.id) >= 0} 
                     cartAdd={props.cartAdd} 
                     cartDelete = {props.cartDelete}/>
                 </div>

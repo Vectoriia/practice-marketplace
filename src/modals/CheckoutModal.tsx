@@ -6,6 +6,8 @@ import cross from "../images/Vector.png";
 import check from "../images/check.png";
 import { ImageButton } from '../components/ImageButton';
 import { FC } from "react";
+import { useAppSelector } from '../redux/hooks';
+import { getCartTotalPrice } from '../redux/slices/cartSlice';
 const mainBoxStyle = {
   position: 'absolute',
   alignItems: 'center',
@@ -26,15 +28,13 @@ const bottomBoxStyle = {
 interface Props {
   handleCheckoutClose():void;
   isOpen: boolean;
-  cartPrice: number;
 }
 
 export const CheckoutModal: FC<Props> = ({
     handleCheckoutClose,
     isOpen,
-    cartPrice,
   })=> {
-
+  const cartPrice = useAppSelector(getCartTotalPrice);
   return (
     <div>
       <Modal

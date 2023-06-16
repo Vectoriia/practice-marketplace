@@ -14,6 +14,8 @@ import searchIcon from "../images/Search.png";
 import cartIcon from "../images/Cart.png";
 import { useNavigate } from 'react-router-dom';
 import { ChangeEventHandler, FC } from "react";
+import { useAppSelector } from "../redux/hooks";
+import { selectCart } from "../redux/slices/cartSlice";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,13 +60,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 interface Props {
   handleSearchChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   handleCartOpen():void;
-  cartAmount: number;
 }
 export const Header: FC<Props> = ({
     handleSearchChange,
     handleCartOpen,
-    cartAmount,
   })=> {
+  const cart = useAppSelector(selectCart);
   const navigate = useNavigate();
   return (
     <div className="sticky top-0 z-40">
@@ -84,7 +85,7 @@ export const Header: FC<Props> = ({
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton aria-label="show amount of goods" color="inherit" onClick={handleCartOpen} >
-              <Badge badgeContent={cartAmount} color="error">
+              <Badge badgeContent={cart.length} color="error">
                 <img className='w-[24px] h-[24px]' src={cartIcon} />
               </Badge>
             </IconButton>
