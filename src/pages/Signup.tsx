@@ -145,7 +145,7 @@ export default function SignupPage() {
       </div>
       <ImageButton handleClick={()=>{
         console.log('window closed');
-        navigate('/home-page');
+        navigate(-1);
       }} alt='cross' src={cross} className='absolute top-[40px] right-[40px] h-[12px] w-[12px]'/>
     </div>
   );
