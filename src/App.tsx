@@ -11,6 +11,7 @@ import SignupPage from './pages/Signup';
 import HomePage from './pages/HomePage';
 import store from './redux/store';
 import { Provider } from 'react-redux';
+import ProductPage from './pages/ProductPage';
 function App() {
   return (
     <Provider store = {store}>
@@ -21,6 +22,7 @@ function App() {
                   <Route path="/signin" element={<LoginPage/>} />
                   <Route path="/signup" element={<SignupPage/>} />
                   <Route path="/home-page" element={<HomePage/>} />
+                  <Route path="/product-page/:id" element={<ProductPage/>}/>
                   <Route path="*" element={<Navigate to="/home-page" replace />} />
               </Routes>
             </BrowserRouter>

@@ -25,8 +25,8 @@ export const cartSlice = createSlice({
     addItemToCart: (state, action: PayloadAction<CartItemInfo>) => {
       state.items = [action.payload, ...state.items];
     },
-    deleteItemFromCart: (state, action: PayloadAction<CartItemInfo>) => {
-      const index = state.items.findIndex(element => element.id == action.payload.id);
+    deleteItemFromCart: (state, action: PayloadAction<number>) => {
+      const index = state.items.findIndex(element => element.id == action.payload);
       if (index >= 0) {
         let tmpCart = [...state.items];
         tmpCart.splice(index, 1);

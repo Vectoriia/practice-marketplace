@@ -9,8 +9,9 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { CardActionArea, CardActions  } from '@mui/material';
 import { ProductInfo } from '../pages/HomePage';
 import { FC } from 'react';
+
 interface Props {
-  handleCardClick(): void;
+  handleCardClick(id:string): void;
   product: ProductInfo;
   isInCart: boolean;
   cartAdd(id:number): void;
@@ -33,7 +34,7 @@ export const ProductCard: FC<Props> = ({
   }
   return(
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={handleCardClick}>
+      <CardActionArea onClick={()=>handleCardClick(product.id.toString())}>
         <CardMedia
           component="img"
           height="140"

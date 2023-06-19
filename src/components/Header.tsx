@@ -69,7 +69,7 @@ export const Header: FC<Props> = ({
   const navigate = useNavigate();
   return (
     <div className="sticky top-0 z-40">
-      <AppBar position="static" sx={{backgroundColor:"white"}}>
+      <AppBar  sx={{backgroundColor:"white", }}>
         <Toolbar>
           <img className='w-[48px] h-[48px]' src={linkupLogo} />
           <Search>
@@ -90,11 +90,11 @@ export const Header: FC<Props> = ({
               </Badge>
             </IconButton>
           </Box>
-          <Button color="inherit" variant="contained"  sx={{color:'black', textTransform: 'none', borderRadius: '40px',}} 
-            onClick={()=>{
+
+          <StyledButton text='Login' type = "button" styleType="white"
+            handleClick={()=>{
             navigate('/signin');
-          }}>
-            Login</Button>
+          }} />
           <StyledButton text='Sign up' type = "button" 
             handleClick={()=>{
             navigate('/signup');
