@@ -10,6 +10,8 @@ import cross from "../images/Vector.png";
 import {useFormik  } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useAppDispatch } from '../redux/hooks';
+import { addUserData } from '../redux/slices/userSlice';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -40,6 +42,7 @@ interface InitialValues{
   passwordConfirm: string;
 } 
 export default function SignupPage() {
+  const dispatch = useAppDispatch();
   const postDataFetch = (values:InitialValues)=>{
     const requestOptions = {
         method: 'POST',
@@ -53,7 +56,18 @@ export default function SignupPage() {
       };
       fetch('https://linkup-academy.herokuapp.com/api/v1/identity/signup', requestOptions)
       .then(res => res.json())
-      .then(res => {console.log(res);})
+      .then(res => {
+        dispatch(addUserData({
+          token: res.token,
+          refreshToken: res.refreshToken,
+          tokenExpiryTime: res.tokenExpiryTime,
+          email: res.email,
+          firstName: res.firstName,
+          lastName: res.lastName,
+          avatarUrl: res.avatarUrl,
+        }))
+        navigate('/home-page');
+      })
       .catch(err => console.log(err));
   }
   const formik = useFormik<InitialValues>({

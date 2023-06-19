@@ -3,19 +3,22 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from '@mui/material/Box';
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
 import {StyledButton} from '../components/StyledButton';
 import IconButton from "@mui/material/IconButton";
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
+import { common } from '@mui/material/colors';
 import Badge from '@mui/material/Badge';
 import linkupLogo from "../images/logo.png";
 import searchIcon from "../images/Search.png";
 import cartIcon from "../images/Cart.png";
 import { useNavigate } from 'react-router-dom';
-import { ChangeEventHandler, FC } from "react";
+import { ChangeEventHandler, FC, useMemo } from "react";
 import { useAppSelector } from "../redux/hooks";
 import { selectCart } from "../redux/slices/cartSlice";
+import { getIsUserAuthorized, selectUser } from "../redux/slices/userSlice";
+import userAvatar from "../images/tempSrc/UserAvatar.png"
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -66,7 +69,10 @@ export const Header: FC<Props> = ({
     handleCartOpen,
   })=> {
   const cart = useAppSelector(selectCart);
+  const user = useAppSelector(selectUser);
   const navigate = useNavigate();
+
+  const isUserAuthorised = useAppSelector(getIsUserAuthorized);
   return (
     <div className="sticky top-0 z-40">
       <AppBar  sx={{backgroundColor:"white", }}>
@@ -90,15 +96,23 @@ export const Header: FC<Props> = ({
               </Badge>
             </IconButton>
           </Box>
-
-          <StyledButton text='Login' type = "button" styleType="white"
-            handleClick={()=>{
-            navigate('/signin');
-          }} />
-          <StyledButton text='Sign up' type = "button" 
-            handleClick={()=>{
-            navigate('/signup');
-          }} />
+          {isUserAuthorised? 
+            <div className = "flex flex-row border-[1px] border-solid border-gray-700 rounded-[50px] w-[73px] h-[42px] items-center justify-center">
+              <DensityMediumIcon sx={{ color: common.black }}/>
+              <img className = "w-[32px] h-[32px]" src = {userAvatar} />
+            </div>
+            :<>
+              <StyledButton text='Login' type = "button" styleType="white"
+                handleClick={()=>{
+                navigate('/signin');
+              }} />
+              <StyledButton text='Sign up' type = "button" 
+                handleClick={()=>{
+                navigate('/signup');
+              }} />
+            </>
+          }
+          
         </Toolbar>
       </AppBar>
     </div>

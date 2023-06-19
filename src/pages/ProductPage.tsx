@@ -134,7 +134,7 @@ const ProductPage = () => {
         <p>It's crafted in Italy from black leather and works an envelope silhouette with the monogram logo in glossy golden hardware. 
           Carry yours in-hand or swing it from the adjustable shoulder strap.</p>
       </div>
-      <CartModal handleCartClose={()=>setOpenCart(false)} handleCheckoutOpen={()=>setOpenCheckout(true)} isOpen = {openCart} cartItemCountModify={(id:number, operator: number)=>dispatch(editItemCount({id, operator}))} cartDelete={(id:number)=>dispatch(deleteItemFromCart(id))}/>
+      <CartModal handleCartClose={()=>setOpenCart(false)} handleCheckoutOpen={()=>setOpenCheckout(true)} isOpen = {openCart} cartItemCountModify={(id:number, operator: number)=>dispatch(editItemCount({id, operator}))}/>
       <CheckoutModal handleCheckoutClose={()=>setOpenCheckout(false)} isOpen = {openCheckout}/>
     </div>
   );

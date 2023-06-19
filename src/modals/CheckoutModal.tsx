@@ -6,8 +6,8 @@ import cross from "../images/Vector.png";
 import check from "../images/check.png";
 import { ImageButton } from '../components/ImageButton';
 import { FC } from "react";
-import { useAppSelector } from '../redux/hooks';
-import { getCartTotalPrice } from '../redux/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { clearCart, getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
 const mainBoxStyle = {
   position: 'absolute',
   alignItems: 'center',
@@ -34,7 +34,9 @@ export const CheckoutModal: FC<Props> = ({
     handleCheckoutClose,
     isOpen,
   })=> {
+  const cart = useAppSelector(selectCart);
   const cartPrice = useAppSelector(getCartTotalPrice);
+  const dispatch = useAppDispatch();
   return (
     <div>
       <Modal
@@ -64,6 +66,9 @@ export const CheckoutModal: FC<Props> = ({
             </div>
           </Box>
           <ImageButton handleClick={()=>{
+            console.log(cart)
+            dispatch(clearCart());
+            console.log(cart)
             handleCheckoutClose();
           }} alt='cross' src={cross} className='absolute top-[40px] right-[40px] h-[12px] w-[12px]'/>
         </Box>

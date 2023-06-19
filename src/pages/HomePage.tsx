@@ -116,7 +116,7 @@ export default function HomePage(){
         <h1>All products</h1>
         <ProductGrid products={products} cartAdd={cartAdd} cartDelete = {cartDelete} handleProductRedirect={handleProductRedirect}/>
         {(hasNextPage)?<StyledIconButton type='button' handleClick={()=>{handlePageNumberChange(PageNumber+1)}} text={"View more products"}/>:null}
-        <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cartItemCountModify={cartItemCountModify} cartDelete={cartDelete}/>
+        <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cartItemCountModify={cartItemCountModify}/>
         <CheckoutModal handleCheckoutClose={handleCheckoutClose} isOpen = {openCheckout}/>
       </div>
     </>

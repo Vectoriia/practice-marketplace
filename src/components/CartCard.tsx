@@ -7,17 +7,18 @@ import { ImageButton } from '../components/ImageButton';
 import cross from "../images/Vector.png";
 import { CartItemInfo } from '../pages/HomePage';
 import { FC } from 'react';
+import { useAppDispatch } from '../redux/hooks';
+import { deleteItemFromCart } from '../redux/slices/cartSlice';
 interface Props {
   cartItemCountModify(id: number, operator: number):void;
   item: CartItemInfo;
-  cartDelete(id:number): void;
 }
 export const CartCard: FC<Props> = ({
     cartItemCountModify,
     item,
-    cartDelete,
   })=>
 {
+  const dispatch = useAppDispatch();
   return(
     <div className = "relative">
       <div className='w-[480px] h-[116px] flex flex-row'>
@@ -41,7 +42,7 @@ export const CartCard: FC<Props> = ({
         </div>
       </div>
       <ImageButton handleClick={()=>{
-              cartDelete(item.id);
+              dispatch(deleteItemFromCart(item.id));
             }} alt='cross' src={cross} className='absolute top-[20px] right-[20px] h-[7px] w-[7px] opacity-50'/>
     </div>
     

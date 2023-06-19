@@ -6,11 +6,13 @@ import Modal from '@mui/material/Modal';
 import cross from "../images/Vector.png";
 import { ImageButton } from '../components/ImageButton';
 import {StyledButton} from '../components/StyledButton';
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { CartItemInfo } from '../pages/HomePage';
 import {CartCard} from '../components/CartCard';
-import { useAppSelector } from '../redux/hooks';
-import { getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { clearCart, getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
+import { getIsUserAuthorized, selectUser } from '../redux/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 const mainBoxStyle = {
   position: 'absolute',
   top: 0,
@@ -32,18 +34,65 @@ interface Props {
   handleCheckoutOpen():void;
   isOpen: boolean;
   cartItemCountModify(id: number, operator: number):void;
-  cartDelete(id:number): void;
 }
-
+interface ArrayProps{
+  quantity:number, 
+  productId:number,
+}
 export const CartModal: FC<Props> = ({
     handleCartClose,
     handleCheckoutOpen,
     isOpen,
     cartItemCountModify,
-    cartDelete,
   })=> {
   const cart = useAppSelector(selectCart);
   const cartPrice = useAppSelector(getCartTotalPrice);
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+  const isUserAuthorised = useAppSelector(getIsUserAuthorized);
+  const navigate = useNavigate();
+  const handleSubmitOrder = async()=>{
+    if(cartPrice<=0){
+      window.alert("Cart is empty");
+      return;
+    }
+    const paramArray: ArrayProps[] = []
+    for(let i = 0; i< cart.length; i++){
+      paramArray.push({quantity: cart[i].amount, productId:cart[i].id});
+    }
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' , 
+                    'Authorization': `Bearer ${user.token}`, 
+        },
+        body:JSON.stringify({
+         orderProducts: paramArray
+        })
+      };
+      
+      if(isUserAuthorised){
+        await fetch('https://linkup-academy.herokuapp.com/api/v1/orders', requestOptions)
+        .then(res => {
+          console.log(res.status)
+          if(res.status !== 200)
+          {
+            throw new Error("not slay");
+          }else
+          { 
+            res.json()
+            handleCheckoutOpen();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          window.alert("Some error occurred.");
+          navigate('/signin')
+        });
+      }else{
+        window.alert("Please authorize first.");
+        navigate('/signin')
+      }
+  }
   return (
     <div>
       <Modal
@@ -64,8 +113,7 @@ export const CartModal: FC<Props> = ({
                     <div key= {value.id}>
                       <CartCard 
                         cartItemCountModify = {cartItemCountModify} 
-                        item = {value} 
-                        cartDelete = {cartDelete}/>
+                        item = {value} />
                     </div>
                   );
                 })}
@@ -81,7 +129,7 @@ export const CartModal: FC<Props> = ({
                 Total Price
               </Typography>
             </div>
-            <StyledButton text='Checkout' type = "button" handleClick={handleCheckoutOpen} className='md:h-[54px]'/>
+            <StyledButton text='Checkout' type = "button" handleClick={handleSubmitOrder} className='md:h-[54px]'/>
           </Box>
           <ImageButton handleClick={()=>{
             handleCartClose();

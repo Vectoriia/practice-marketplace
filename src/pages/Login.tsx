@@ -11,6 +11,8 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 import * as Yup from 'yup';
+import { useAppDispatch } from '../redux/hooks';
+import { addUserData } from '../redux/slices/userSlice';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().required('Required'),
@@ -21,19 +23,31 @@ interface InitialValues{
   password: string;
 } 
 export default function LoginPage() {
-    const postDataFetch = (values:InitialValues)=>{
+  const dispatch = useAppDispatch();
+  const postDataFetch = (values:InitialValues)=>{
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:JSON.stringify({
-          email: values.email,
-          password: values.password
-        })
-      };
-      fetch('https://linkup-academy.herokuapp.com/api/v1/identity/signin', requestOptions)
-      .then(res => res.json())
-      .then(res => {console.log(res);})
-      .catch(err => console.log(err));
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify({
+        email: values.email,
+        password: values.password
+      })
+    };
+    fetch('https://linkup-academy.herokuapp.com/api/v1/identity/signin', requestOptions)
+    .then(res => res.json())
+    .then(res => {
+      dispatch(addUserData({
+        token: res.token,
+        refreshToken: res.refreshToken,
+        tokenExpiryTime: res.tokenExpiryTime,
+        email: res.email,
+        firstName: res.firstName,
+        lastName: res.lastName,
+        avatarUrl: res.avatarUrl,
+      }))
+      navigate('/home-page');
+    })
+    .catch(err => console.log(err));
   }
   const formik = useFormik<InitialValues>({
     initialValues: {

@@ -1,7 +1,6 @@
-import {  createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {  createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
-import { CartItemInfo, ProductInfo } from '../../pages/HomePage'
-import { stat } from 'fs'
+import { CartItemInfo } from '../../pages/HomePage'
 
 // Define a type for the slice state
 interface CartState {
@@ -16,6 +15,10 @@ interface EditItemProps{
   id: number,
   operator: number,
 }
+export const clearCartAsync = createAsyncThunk('cart/clearCart', async(cart:CartItemInfo[] )=>{
+  cart = [];
+});
+
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -44,11 +47,14 @@ export const cartSlice = createSlice({
           }
         }
       }
+    },
+    clearCart:(state)=>{
+      state.items = [];
     }
-  }  
+  } , 
 })
 
-export const { addItemToCart, deleteItemFromCart, editItemCount } = cartSlice.actions
+export const { addItemToCart, deleteItemFromCart, editItemCount, clearCart } = cartSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCart = (state: RootState) => state.cart.items
