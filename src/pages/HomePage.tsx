@@ -88,7 +88,6 @@ export default function HomePage(){
       const jsonData = await data.json();
       setProducts(jsonData.items);
       setHasNextPage(jsonData.hasNextPage);
-      
     };
     api();
   }, [Search, CategoryId]);

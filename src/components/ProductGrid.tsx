@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {ProductCard} from './ProductCard';
-import { FC, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { ProductInfo, CartItemInfo } from '../pages/HomePage';
+import { ProductInfo } from '../pages/HomePage';
 import { useAppSelector } from '../redux/hooks';
 import { selectCart } from '../redux/slices/cartSlice';
 import productImg1 from "../images/tempSrc/productImg1.png";

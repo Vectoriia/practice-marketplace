@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { CartModal } from "../modals/CartModal";
@@ -47,10 +47,12 @@ const ProductPage = () => {
     detailsPictureURLSecondary: [],
     detailsTextPrimary: '',
     detailsTextSecondary: '',});
-  const [openCart, setOpenCart] = useState(false);
-  const [openCheckout, setOpenCheckout] = useState(false);
   const cart = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
+
+  const [openCart, setOpenCart] = useState(false);
+  const [openCheckout, setOpenCheckout] = useState(false);
+  const isInCart = useMemo(()=>cart.findIndex(p => p.id == product.id) >= 0,[cart, product]);
   useEffect(()=>{
     const api = async () => {
       const data = await fetch(`https://linkup-academy.herokuapp.com/api/v1/products/${id}`, {
@@ -60,7 +62,9 @@ const ProductPage = () => {
       setProduct(jsonData);
     };
     api();
+    window.scrollTo(0,0);
   }, []);
+
   return (
     <div className = "mt-16">
       <Header handleSearchChange={()=>{}} handleCartOpen={()=>setOpenCart(true)}/>
@@ -79,17 +83,21 @@ const ProductPage = () => {
             <Typography variant="h4">
               ${product.price}
             </Typography>
-            <StyledButton text='Add to Cart' type = "button" 
+            <StyledButton text={isInCart?"Added to Cart":"Add to Cart"} type = "button" 
               styleType="outlined"
               handleClick={()=>{
-                dispatch(addItemToCart({
-                  id: product.id, 
-                  name: product.name, 
-                  price: product.price, 
-                  soldCount: product.soldCount,
-                  imageURL: product.imageURL, 
-                  amount: 1
-                }))
+                if (isInCart){
+                  dispatch(deleteItemFromCart(product.id));
+                }else{
+                  dispatch(addItemToCart({
+                    id: product.id, 
+                    name: product.name, 
+                    price: product.price, 
+                    soldCount: product.soldCount,
+                    imageURL: product.imageURL, 
+                    amount: 1
+                  }));
+                }
             }} />
           </div>
         </div>
