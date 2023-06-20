@@ -6,18 +6,17 @@ import Modal from '@mui/material/Modal';
 import cross from "../images/Vector.png";
 import { ImageButton } from '../components/ImageButton';
 import {StyledButton} from '../components/StyledButton';
-import { FC, useMemo } from "react";
-import { CartItemInfo } from '../pages/HomePage';
+import { FC } from "react";
 import {CartCard} from '../components/CartCard';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { clearCart, getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
+import { useAppSelector } from '../redux/hooks';
+import { getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
 import { getIsUserAuthorized, selectUser } from '../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 const mainBoxStyle = {
   position: 'absolute',
   top: 0,
   right:0,
-  width: '560px',
+  width: {lg:'35%', md:'60%', xs:'100%'},
   height: '100%',
   bgcolor: 'background.paper',
   border: 'none',
@@ -48,7 +47,6 @@ export const CartModal: FC<Props> = ({
   const cart = useAppSelector(selectCart);
   const cartPrice = useAppSelector(getCartTotalPrice);
   const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
   const isUserAuthorised = useAppSelector(getIsUserAuthorized);
   const navigate = useNavigate();
   const handleSubmitOrder = async()=>{

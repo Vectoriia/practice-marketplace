@@ -4,7 +4,6 @@ import {Header} from '../components/Header';
 import ImageCarousell from '../components/Carousel';
 import {CategoryScroll} from '../components/CategoryScroll';
 import ProductGrid from '../components/ProductGrid';
-import {StyledIconButton} from '../components/StyledIconButton';
 import {CartModal} from '../modals/CartModal';
 import {CheckoutModal} from '../modals/CheckoutModal';
 import { addItemToCart, deleteItemFromCart, editItemCount, getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
@@ -43,8 +42,8 @@ export default function HomePage(){
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   }
-  const handlePageNumberChange = (page:number) => {
-    setPageNumber(page);
+  const handlePageNumberChange = () => {
+    setPageNumber(PageNumber+1);
   }
   function cartDelete(id: number){
     dispatch(deleteItemFromCart(id));
@@ -107,18 +106,17 @@ export default function HomePage(){
   }, [PageNumber]);
 
   return(
-    <>
+    <div className="w-full h-full flex flex-col items-center">
       <Header handleSearchChange={handleSearchChange} handleCartOpen={handleCartOpen}/>
-      <div className = "mt-16">
+      <div className = "max-w-[1015px] mt-20 flex flex-col items-center justify-center">
         <ImageCarousell/>
-        <h1>Categories</h1>
+        <h1 >Categories</h1>
         <CategoryScroll handleClick={handleCategoryChange}/>
         <h1>All products</h1>
-        <ProductGrid products={products} cartAdd={cartAdd} cartDelete = {cartDelete} handleProductRedirect={handleProductRedirect}/>
-        {(hasNextPage)?<StyledIconButton type='button' handleClick={()=>{handlePageNumberChange(PageNumber+1)}} text={"View more products"}/>:null}
+        <ProductGrid products={products} cartAdd={cartAdd} cartDelete = {cartDelete} handleProductRedirect={handleProductRedirect} hasNextPage={hasNextPage} handlePageNumberChange={handlePageNumberChange}/>
         <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cartItemCountModify={cartItemCountModify}/>
         <CheckoutModal handleCheckoutClose={handleCheckoutClose} isOpen = {openCheckout}/>
       </div>
-    </>
+    </div>
   );
 }

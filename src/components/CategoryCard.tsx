@@ -13,16 +13,15 @@ interface Props {
 }
 export default function CategoryCard (props:Props){
   return(
-    <Card sx={{ maxWidth: 345, color: props.isActive?"#37AFA8":"black" }}>
+    <Card className="min-w-[152px]" sx={{ width: 132, color: props.isActive?"#37AFA8":"black" }}>
       <CardActionArea onClick={props.handleClick}>
         <CardMedia
           component="img"
-          height="140"
           image={props.imageSrc}
           alt={props.text}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom component="div">
             {props.text}
           </Typography>
         </CardContent>

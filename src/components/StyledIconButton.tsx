@@ -2,7 +2,6 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { FC } from "react";
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import ArrowIcon from "../images/arrowButton.png"
 const ColorButton = styled(Button)<ButtonProps>(({ ...props }) => ({
   borderRadius: '40px',
@@ -29,16 +28,19 @@ export const StyledIconButton: FC<Props> = ({
    className,
    ...props
  }) => (
-    <div className='absolute '>
+    <div className=''>
       <ColorButton 
+        sx={{height: "54px", width: "280px"}}
         variant="contained" 
         onClick={handleClick}
         type = {type}
         disableElevation={true}
         className = {className}
         >
-          {text}
+          <div className='w-full flex items-center justify-center text-sm'>
+            {text}
+            <img className="w-[38px] h-[38px] absolute right-2"  src={ArrowIcon} alt="arrowIcon" onClick={handleClick}/>
+          </div>
       </ColorButton>
-      <img className="" src={ArrowIcon} alt="arrowIcon" onClick={handleClick}/>
     </div>
 );

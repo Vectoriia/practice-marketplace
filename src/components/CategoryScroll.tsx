@@ -42,10 +42,10 @@ export const CategoryScroll:FC<Props> = ({
     api();
   }, [currentCategory]);
   return(
-    <div className='flex flex-row overflow-x-auto'>
+    <div className='flex gap-[22px] overflow-x-auto max-w-[1000px]'>
         {result.map((value, index) => {
           return (
-            <div key= {value.id}>
+            <div key={index}>
               <CategoryCard handleClick ={()=>handleWrapper(value.id)} text = {value.name} imageSrc= {imageSrc[index]} isActive={value.id==currentCategory}/>
             </div>
           );

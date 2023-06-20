@@ -15,7 +15,7 @@ import { useAppDispatch } from '../redux/hooks';
 import { addUserData } from '../redux/slices/userSlice';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().required('Required'),
+  email: Yup.string().required('No email provided.'),
   password: Yup.string().required('No password provided.'),
 });
 interface InitialValues{
@@ -62,11 +62,13 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-max mx-auto overflow-hidden md:max-w-full flex py-2 px-4 sm:px-6 lg:px-8">
-      <div className="w-3/5">
-        <img className="h-52 w-52 md:w-full md:h-full" src={loginImage}  alt="background"/>
+    <div className="max-w-max h-full mx-auto overflow-hidden 
+    flex flex-col items-center justify-center lg:flex-row xl:flex-row 2xl:flex-row
+    py-2 px-4 sm:px-6 lg:px-8 ">
+      <div className="w-3/5 flex justify-center">
+        <img className="w-full h-full " src={loginImage}  alt="background"/>
       </div>
-      <div className="flex flex-col items-center md:w-2/5">
+      <div className="flex flex-col sm:h-[40%] md:h-[50%] lg:h-[90%] items-center  md:w-2/5">
         <div className="flex flex-col h-full justify-center md:w-[373px]">
           <h2 className="mt-6 text-left text-3xl font-almarai text-gray-700 font-bold">
             Welcome!
@@ -82,10 +84,10 @@ export default function LoginPage() {
             type ="default"
           />
           {formik.errors.email && formik.touched.email && (
-            <div>{formik.errors.email}</div>
+            <div className='text-red-700'>{formik.errors.email}</div>
           )}
           <StyledTextField
-            className = "mt-[15px]"
+            className = "mt-[15px] text-red-700"
             placeholder="Password"
             onChange={(e) => formik.setFieldValue('password', e.target.value)}
             value={formik.values.password}

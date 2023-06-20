@@ -15,16 +15,16 @@ import { addUserData } from '../redux/slices/userSlice';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(20, 'Too Long!')
-    .required('Required'),
+    .min(2, 'Too Short firstname!')
+    .max(20, 'Too Long firstname!')
+    .required('Firstname equired'),
   lastName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(20, 'Too Long!')
-    .required('Required'),
+    .min(2, 'Too Short lastname!')
+    .max(20, 'Too Long lastname!')
+    .required('Lastname equired'),
   email: Yup.string()
     .email('Invalid email')
-    .required('Required'),
+    .required('No email provided.'),
   password: Yup.string()
     .min(6, 'Password is too short - should be 8 chars minimum.')
     .max(20, 'Password is too long - should be 20 chars maximum.')
@@ -86,11 +86,13 @@ export default function SignupPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-max mx-auto overflow-hidden md:max-w-full flex py-2 px-4 sm:px-6 lg:px-8">
-      <div className="w-2/5">
-        <img className="h-52 w-auto md:h-full" src={signupImage}  alt="background"/>
+    <div className="max-w-max h-full mx-auto overflow-hidden 
+     flex flex-col items-center justify-center lg:flex-row xl:flex-row 2xl:flex-row
+     py-2 px-4 sm:px-6 lg:px-8">
+      <div className="w-2/5 flex justify-center">
+        <img className="w-full h-full" src={signupImage}  alt="background"/>
       </div>
-      <div className="flex flex-col items-center md:w-3/5">
+      <div className="flex flex-col sm:h-[40%] md:h-[50%] lg:h-[90%] items-center md:w-3/5">
         <div className="flex flex-col h-full justify-center md:w-[495px]">
           <h2 className="mt-6 text-left text-3xl font-almarai text-gray-700 font-bold">
               Sign Up
@@ -114,12 +116,12 @@ export default function SignupPage() {
               type ="default"
             />
           </div>
-            {formik.errors.firstName && formik.touched.firstName ? (
-            <div>{formik.errors.firstName}</div>
-            ) : null}
-            {formik.errors.lastName && formik.touched.lastName ? (
-            <div>{formik.errors.lastName}</div>
-            ) : null}
+          <div className='flex flex-row '>
+            {formik.errors.firstName && formik.touched.firstName && 
+            <div className='flex-auto text-red-700'>{formik.errors.firstName}</div>}
+            {formik.errors.lastName && formik.touched.lastName &&
+            <div className='flex-auto text-red-700'>{formik.errors.lastName}</div>}
+          </div>
           <StyledTextField
             className = "mt-[15px]"
             placeholder="Email"
@@ -127,9 +129,8 @@ export default function SignupPage() {
             value={formik.values.email}
             type ="default"
           />
-          {formik.errors.email && formik.touched.email ? (
-          <div>{formik.errors.email}</div>
-          ) : null}
+          {formik.errors.email && formik.touched.email &&
+          <div className='text-red-700'>{formik.errors.email}</div>}
           <StyledTextField
             className = "mt-[15px]"
             placeholder="Password"
@@ -137,7 +138,7 @@ export default function SignupPage() {
             value={formik.values.password}
             type ="password"
           />
-          {formik.errors.password && formik.touched.password ? <div>{formik.errors.password}</div> : null}
+          {formik.errors.password && formik.touched.password && <div className='text-red-700'>{formik.errors.password}</div>}
           <StyledTextField
             className = "mt-[15px]"
             placeholder="Confirm password"
@@ -145,7 +146,7 @@ export default function SignupPage() {
             value={formik.values.passwordConfirm}
             type ="password"
           />
-          {formik.errors.passwordConfirm && formik.touched.passwordConfirm ? <div>{formik.errors.passwordConfirm}</div> : null}
+          {formik.errors.passwordConfirm && formik.touched.passwordConfirm && <div className='text-red-700'>{formik.errors.passwordConfirm}</div>}
           <StyledButton text='Next' type = "submit" handleClick={formik.handleSubmit} className='md:h-14' marginTop='34px'/>
         </div>
         <div className='flex flex-col'>
