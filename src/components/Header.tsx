@@ -73,7 +73,7 @@ export const Header: FC<Props> = ({
 
   const isUserAuthorised = useAppSelector(getIsUserAuthorized);
   return (
-    <div className="sticky top-0 z-40">
+    <div className="sticky top-0 z-40 h-[68px]">
       <AppBar  sx={{backgroundColor:"white", }}>
         <Toolbar className="lg:mx-[277px] md:mx-[150px] sm:mx-[100px] flex flex-row  items-center justify-center space-x-20">
           <img className='w-[48px] h-[48px]' src={linkupLogo} onClick={()=>{navigate('/home-page');}}/>

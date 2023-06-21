@@ -1,5 +1,6 @@
 import React from 'react';
-import Carousel from 'react-material-ui-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 import { Paper } from '@mui/material';
 import { FC } from "react";
 import carouselImage1 from "../images/Carousel1.png";
@@ -23,8 +24,8 @@ export default function ImageCarousell() {
   ];
 
   return (
-    <div className='w-full '>
-      <Carousel swipe={true} animation = 'slide' autoPlay = {false}>
+    <div className='w-full -mb-5'>
+      <Carousel infiniteLoop = {true} swipeable = {true} showThumbs={false}>
         {items.map((item, i) => (
           <Item key={i} {...item} />
         ))}

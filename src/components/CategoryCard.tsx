@@ -21,7 +21,7 @@ export default function CategoryCard (props:Props){
           alt={props.text}
         />
         <CardContent>
-          <Typography gutterBottom component="div">
+          <Typography gutterBottom component="div" sx={{fontFamily:"Amari", fontWeight: "400", fontSize: "14px", lineHeight: "16px", fontStyle: "normal"}}>
             {props.text}
           </Typography>
         </CardContent>

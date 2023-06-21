@@ -100,38 +100,41 @@ export const CartModal: FC<Props> = ({
         aria-describedby="modal-modal-description"
       >
         <Box sx={mainBoxStyle}>
-          <div className='p-4'>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              My Cart
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }} component="span">
-              <div className='flex flex-col space-y-[15px]'>
-                {cart.map((value, index) => {
-                  return (
-                    <div key= {value.id}>
-                      <CartCard 
-                        cartItemCountModify = {cartItemCountModify} 
-                        item = {value} />
-                    </div>
-                  );
-                })}
-              </div>
-            </Typography>
-          </div>
-          <Box className="flex flex-row" sx={bottomBoxStyle}>
-            <div>
-              <Typography gutterBottom variant="h5" component="div">
-                ${cartPrice}
+          <div className='flex flex-col h-full'>
+            <div className='p-4'>
+              <Typography id="modal-modal-title" variant="h6" component="h2" sx={{color: "#313131",fontSize: "32px", 
+                                      fontFamily: "Almarai",fontWeight: "700", marginY: '50px', marginLeft: '40px'}}>
+                My Cart
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Total Price
+              <Typography id="modal-modal-description" sx={{ mt: 2 }} component="span">
+                <div className='flex flex-col space-y-[15px] overflow-y-auto overflow-x-hidden  max-h-[400px]'>
+                  {cart.map((value, index) => {
+                    return (
+                      <div key= {value.id}>
+                        <CartCard 
+                          cartItemCountModify = {cartItemCountModify} 
+                          item = {value} />
+                      </div>
+                    );
+                  })}
+                </div>
               </Typography>
             </div>
-            <StyledButton text='Checkout' type = "button" handleClick={handleSubmitOrder} className='md:h-[54px]'/>
-          </Box>
-          <ImageButton handleClick={()=>{
-            handleCartClose();
-          }} alt='cross' src={cross} className='absolute top-[40px] right-[40px] h-[12px] w-[12px]'/>
+            <Box className="flex flex-row w-full items-center justify-between px-[20px] mt-auto" sx={bottomBoxStyle}>
+              <div>
+                <Typography gutterBottom variant="h5" component="div" sx={{color: "#313131",fontSize: "32px", fontFamily: "Almarai"}}>
+                  ${cartPrice}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{color: "#A8ACB8",fontSize: "14px", fontFamily: "Almarai"}}>
+                  Total Price
+                </Typography>
+              </div>
+              <StyledButton text='Checkout' type = "button" handleClick={handleSubmitOrder} className='md:h-[54px]'/>
+            </Box>
+            <ImageButton handleClick={()=>{
+              handleCartClose();
+            }} alt='cross' src={cross} className='absolute top-[40px] right-[40px] h-[12px] w-[12px]'/>
+          </div>
         </Box>
       </Modal>
     </div>

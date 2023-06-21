@@ -5,6 +5,9 @@ import { FC } from "react";
 const ColorButtonGreen = styled(Button)<ButtonProps>(({ ...props }) => ({
   borderRadius: '40px',
   backgroundColor: '#37AFA8',
+  fontFamily: 'Almarai',
+  fontWeight: "400",
+  fontSize: "14px",
   '&:hover': {
     backgroundColor: '#3BBEB6',
   },
@@ -16,6 +19,9 @@ const ColorButtonGreen = styled(Button)<ButtonProps>(({ ...props }) => ({
 const ColorButtonWhite = styled(Button)<ButtonProps>(({ ...props }) => ({
   borderRadius: '40px',
   backgroundColor: 'white',
+  fontFamily: 'Almarai',
+  fontWeight: "400",
+  fontSize: "14px",
   '&:hover': {
     backgroundColor: '#D9D9D9',
   },
@@ -29,6 +35,9 @@ const ColorButtonWhite = styled(Button)<ButtonProps>(({ ...props }) => ({
 const ColorButtonOutlined = styled(Button)<ButtonProps>(({ ...props }) => ({
   borderRadius: '40px',
   backgroundColor: 'white',
+  fontFamily: 'Almarai',
+  fontWeight: "400",
+  fontSize: "14px",
   '&:hover': {
     backgroundColor: '#D9D9D9',
   },
@@ -64,8 +73,7 @@ export const StyledButton: FC<Props> = ({
           type = {type}
           disableElevation={true}
           className = {className}
-          sx={{marginTop: {marginTop}}}
-        >
+          sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}>
             {text}
         </ColorButtonOutlined>
       );
@@ -77,7 +85,7 @@ export const StyledButton: FC<Props> = ({
           type = {type}
           disableElevation={true}
           className = {className}
-          sx={{marginTop: {marginTop}}}
+          sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}
         >
             {text}
         </ColorButtonWhite>
@@ -90,7 +98,7 @@ export const StyledButton: FC<Props> = ({
           type = {type}
           disableElevation={true}
           className = {className}
-          sx={{marginTop: {marginTop}}}
+          sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}
         >
             {text}
         </ColorButtonGreen>

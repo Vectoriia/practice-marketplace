@@ -110,9 +110,9 @@ export default function HomePage(){
       <Header handleSearchChange={handleSearchChange} handleCartOpen={handleCartOpen}/>
       <div className = "max-w-[1015px] mt-20 flex flex-col items-center justify-center">
         <ImageCarousell/>
-        <h1 >Categories</h1>
+        <h1 className="w-full my-[14px] text-left font-almarai font-size-[24px] font-bold text-gray-700">Categories</h1>
         <CategoryScroll handleClick={handleCategoryChange}/>
-        <h1>All products</h1>
+        <h1 className="w-full my-[14px] text-left font-almarai font-size-[24px] font-bold  text-gray-700">All products</h1>
         <ProductGrid products={products} cartAdd={cartAdd} cartDelete = {cartDelete} handleProductRedirect={handleProductRedirect} hasNextPage={hasNextPage} handlePageNumberChange={handlePageNumberChange}/>
         <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cartItemCountModify={cartItemCountModify}/>
         <CheckoutModal handleCheckoutClose={handleCheckoutClose} isOpen = {openCheckout}/>
