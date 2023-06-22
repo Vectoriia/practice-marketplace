@@ -124,7 +124,7 @@ const ProductPage = () => {
             a gold-toned iteration of the brand's iconic YSL monogram plaque.<br/><br/>Suited for day-to-night styles, the Uptown clutch from Saint Laurent will lend any look a touch of Parisian glamour.
             <br/><br/>It's crafted in Italy from black leather and works an envelope silhouette with the monogram logo in glossy golden hardware. 
             Carry yours in-hand or swing it from the adjustable shoulder strap.</p>
-          <div className="flex flex-row my-[30px]">
+          <div className="flex flex-row my-[30px] space-x-[22px]">
             {detailsPictureURLSecondary.map((value, index) => {
                 return (
                   <div key= {index}>

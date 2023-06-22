@@ -33,33 +33,35 @@ export const ProductCard: FC<Props> = ({
     }
   }
   return(
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={()=>handleCardClick(product.id.toString())}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={product.imageURL}
-          alt={product.name}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {product.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {product.soldCount} {' '} sold
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ${product.price}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <IconButton aria-label="play/pause" onClick={handleCartChange}>
+    <>
+      <Card sx={{ maxWidth: "250px", maxHeight: "360px", position:"relative"}} style={{ borderRadius:"20px", boxShadow: "0px 4px 19px 0px rgba(0, 0, 0, 0.06)" }}>
+        <CardActionArea onClick={()=>handleCardClick(product.id.toString())}>
+          <CardMedia
+            component="img"
+            height="140"
+            image={product.imageURL}
+            alt={product.name}
+          />
+        </CardActionArea>
+        <div className='flex' onClick={()=>handleCardClick(product.id.toString())}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div" sx={{fontSize:'14px',  fontFamily: "Almarai",fontWeight: "700"}}>
+              {product.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{fontSize:'12px',  fontFamily: "Almarai", color: "#A8ACB8"}}>
+              {product.soldCount} {' '} sold
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{fontSize:'18px',  fontFamily: "Almarai",fontWeight: "700", color: "#3BBEB6"}}>
+              ${product.price}
+            </Typography>
+          </CardContent>
+        </div>
+        <IconButton aria-label="play/pause" sx={{pointerEvents:'painted', padding: "0px", position:"absolute", height: "38px", width:"38px", bottom: "15px", right:"12px"}} onClick={handleCartChange}>
           {isInCart?
             <CheckCircleIcon sx={{ height: 38, width: 38, color:"black" }} />
             :<AddCircleIcon sx={{ height: 38, width: 38, color:"black" }} />}
         </IconButton>
-      </CardActions>
-    </Card>
+      </Card>
+    </>
   );
 }

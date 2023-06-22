@@ -13,7 +13,7 @@ interface Props {
 }
 export default function CategoryCard (props:Props){
   return(
-    <Card className="min-w-[152px]" sx={{ width: 132, color: props.isActive?"#37AFA8":"black" }}>
+    <Card className="min-w-[152px]" sx={{ width: 132, color: props.isActive?"#37AFA8":"black" }} style={{ border: "none", boxShadow: "none" }}>
       <CardActionArea onClick={props.handleClick}>
         <CardMedia
           component="img"

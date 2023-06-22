@@ -38,14 +38,14 @@ export default function ProductGrid(props:Props){
     <>
       <div className='flex flex-col w-full justify-start overflow-x-auto overflow-y-hidden'>
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 20 }}>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 20 }} >
             {props.products.map((value, index) => {
               value.imageURL = imageURL[imgIndex];
               (imgIndex === 9)?imgIndex = 0:imgIndex++;
               
               return (
-                <Grid item xs={2} sm={4} md={4} key={index}>
-                  <div key= {value.id}>
+                <Grid item xs={2} sm={4} md={4} key={index} >
+                  <div key= {value.id} className="ml-[80px] sm:ml-[30px] md:ml-[0px]">
                     <ProductCard 
                       handleCardClick ={props.handleProductRedirect}
                       product = {value}
