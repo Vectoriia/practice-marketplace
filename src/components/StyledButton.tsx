@@ -39,6 +39,9 @@ const ColorButtonOutlined = styled(Button)<ButtonProps>(({ ...props }) => ({
   fontWeight: "400",
   fontSize: "14px",
   '&:hover': {
+    backgroundColor: '#ffffff',
+  },
+  '&:active': {
     backgroundColor: '#D9D9D9',
   },
   color: '#3BBEB6',
