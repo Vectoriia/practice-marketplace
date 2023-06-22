@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Header } from "../components/Header";
-import { CartModal } from "../modals/CartModal";
-import { CheckoutModal } from "../modals/CheckoutModal";
+import Header from "../components/Header";
+import CartModal from "../modals/CartModal";
+import CheckoutModal from "../modals/CheckoutModal";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addItemToCart, deleteItemFromCart, editItemCount, selectCart } from "../redux/slices/cartSlice";
-import { StyledButton } from "../components/StyledButton";
+import StyledButton from "../components/StyledButton";
 import Typography from '@mui/material/Typography';
 import imageURL from "../images/tempSrc/imageURL.png";
 import detailsPictureURLPrimary from "../images/tempSrc/detailsPictureURLPrimary.png";
@@ -82,7 +82,9 @@ const ProductPage = () => {
                   {product.name}
               </Typography>
               <p className="text-[14px] font-Almari text-[#A8ACB8]">{product.soldCount}{" "}sold</p>
-              <p className="text-[14px] font-Almarai text-breaks">{/*product?.description*/}Finish every look on a note of Parisian chic with the 
+              <p className="text-[14px] font-Almarai text-breaks">
+                {/*product?.description*/}
+                Finish every look on a note of Parisian chic with the 
                 Lou Camera crossbody bag from Saint Laurent, presented here in cream beige. Made 
                 in Italy from chevron matelassé leather, the design is adorned with golden hardware.</p>
             </div>
@@ -119,10 +121,12 @@ const ProductPage = () => {
           <Typography variant="h6" sx={{fontSize:'18px',  fontFamily: "Almarai",fontWeight: "700"}}>
             Take a look at a new style!
           </Typography> 
-          <p className="text-[16px] font-Almarai leaading-normal text-breaks">No matter where you're heading, the Uptown wallet on chain from Saint Laurent will lend Parisian glamour to your looks. 
-            The slimline design comes in moss green leather embossed with a croc-effect, and its envelope silhouette is completed with 
-            a gold-toned iteration of the brand's iconic YSL monogram plaque.<br/><br/>Suited for day-to-night styles, the Uptown clutch from Saint Laurent will lend any look a touch of Parisian glamour.
-            <br/><br/>It's crafted in Italy from black leather and works an envelope silhouette with the monogram logo in glossy golden hardware. 
+          <p className="text-[16px] font-Almarai leaading-normal text-breaks">No matter where you're heading, the 
+            Uptown wallet on chain from Saint Laurent will lend Parisian glamour to your looks. The slimline design
+             comes in moss green leather embossed with a croc-effect, and its envelope silhouette is completed with 
+            a gold-toned iteration of the brand's iconic YSL monogram plaque.<br/><br/>Suited for day-to-night styles, 
+            the Uptown clutch from Saint Laurent will lend any look a touch of Parisian glamour.<br/><br/>It's crafted 
+            in Italy from black leather and works an envelope silhouette with the monogram logo in glossy golden hardware. 
             Carry yours in-hand or swing it from the adjustable shoulder strap.</p>
           <div className="flex flex-row my-[30px] space-x-[22px]">
             {detailsPictureURLSecondary.map((value, index) => {
@@ -134,15 +138,22 @@ const ProductPage = () => {
               })
             }
           </div>
-          <p className="text-[16px] font-Almarai leaading-normal text-breaks">No matter where you're heading, the Uptown wallet on chain from Saint Laurent will lend Parisian glamour to your looks. 
-            The slimline design comes in moss green leather embossed with a croc-effect, and its envelope silhouette is completed with 
-            a gold-toned iteration of the brand's iconic YSL monogram plaque.<br/><br/>
-            Suited for day-to-night styles, the Uptown clutch from Saint Laurent will lend any look a touch of Parisian glamour.<br/><br/>
-            It's crafted in Italy from black leather and works an envelope silhouette with the monogram logo in glossy golden hardware. 
-            Carry yours in-hand or swing it from the adjustable shoulder strap.</p>
+          <p className="text-[16px] font-Almarai leaading-normal text-breaks">No matter where you're heading, the Uptown 
+            wallet on chain from Saint Laurent will lend Parisian glamour to your looks. The slimline design comes in moss
+             green leather embossed with a croc-effect, and its envelope silhouette is completed with a gold-toned 
+             iteration of the brand's iconic YSL monogram plaque.<br/><br/>Suited for day-to-night styles, 
+             the Uptown clutch from Saint Laurent will lend any look a touch of Parisian glamour.<br/><br/>
+            It's crafted in Italy from black leather and works an envelope silhouette with the monogram logo in 
+            glossy golden hardware. Carry yours in-hand or swing it from the adjustable shoulder strap.</p>
         </div>
-        <CartModal handleCartClose={()=>setOpenCart(false)} handleCheckoutOpen={()=>setOpenCheckout(true)} isOpen = {openCart} cartItemCountModify={(id:number, operator: number)=>dispatch(editItemCount({id, operator}))}/>
-        <CheckoutModal handleCheckoutClose={()=>setOpenCheckout(false)} isOpen = {openCheckout}/>
+        <CartModal 
+          handleCartClose={()=>setOpenCart(false)} 
+          handleCheckoutOpen={()=>setOpenCheckout(true)} 
+          isOpen = {openCart} 
+          cartItemCountModify={(id:number, operator: number)=>dispatch(editItemCount({id, operator}))}/>
+        <CheckoutModal 
+          handleCheckoutClose={()=>setOpenCheckout(false)} 
+          isOpen = {openCheckout}/>
       </div>
     </div>
   );

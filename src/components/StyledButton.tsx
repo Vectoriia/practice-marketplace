@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { FC } from "react";
+
 const ColorButtonGreen = styled(Button)<ButtonProps>(({ ...props }) => ({
   borderRadius: '40px',
   backgroundColor: '#37AFA8',
@@ -59,52 +60,52 @@ interface Props {
   className?: string;
   marginTop?: string;
 }
-export const StyledButton: FC<Props> = ({
+const StyledButton: FC<Props> = ({
    handleClick,
    text,
    type,
    className,
    styleType,
-   marginTop,
-   ...props
+   marginTop
  }) => {
-    if(styleType === "outlined"){
-      return(
-        <ColorButtonOutlined 
-          variant="contained" 
-          onClick={handleClick}
-          type = {type}
-          disableElevation={true}
-          className = {className}
-          sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}>
-            {text}
-        </ColorButtonOutlined>
-      );
-    }else if(styleType === "white"){
-      return(
-        <ColorButtonWhite 
-          variant="contained" 
-          onClick={handleClick}
-          type = {type}
-          disableElevation={true}
-          className = {className}
-          sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}
-        >
-            {text}
-        </ColorButtonWhite>
-      );
-    }else{
-      return(
-        <ColorButtonGreen 
-          variant="contained" 
-          onClick={handleClick}
-          type = {type}
-          disableElevation={true}
-          className = {className}
-          sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}
-        >
-            {text}
-        </ColorButtonGreen>
-      );
+  if(styleType === "outlined"){
+    return(
+      <ColorButtonOutlined 
+        variant="contained" 
+        onClick={handleClick}
+        type = {type}
+        disableElevation={true}
+        className = {className}
+        sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}>
+          {text}
+      </ColorButtonOutlined>
+    );
+  }else if(styleType === "white"){
+    return(
+      <ColorButtonWhite 
+        variant="contained" 
+        onClick={handleClick}
+        type = {type}
+        disableElevation={true}
+        className = {className}
+        sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}
+      >
+          {text}
+      </ColorButtonWhite>
+    );
+  }else{
+    return(
+      <ColorButtonGreen 
+        variant="contained" 
+        onClick={handleClick}
+        type = {type}
+        disableElevation={true}
+        className = {className}
+        sx={{marginTop: {marginTop}, width: {xs:'100px', md:'120px'}}}
+      >
+          {text}
+      </ColorButtonGreen>
+    );
   }
 };
+ export default StyledButton;

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import cross from "../images/Vector.png";
-import { ImageButton } from '../components/ImageButton';
-import {StyledButton} from '../components/StyledButton';
+import ImageButton from '../components/ImageButton';
+import StyledButton from '../components/StyledButton';
 import { FC } from "react";
-import {CartCard} from '../components/CartCard';
+import CartCard from '../components/CartCard';
 import { useAppSelector } from '../redux/hooks';
 import { getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
 import { getIsUserAuthorized, selectUser } from '../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
+
 const mainBoxStyle = {
   position: 'absolute',
   top: 0,
@@ -38,7 +38,7 @@ interface ArrayProps{
   quantity:number, 
   productId:number,
 }
-export const CartModal: FC<Props> = ({
+const CartModal: FC<Props> = ({
     handleCartClose,
     handleCheckoutOpen,
     isOpen,
@@ -122,10 +122,12 @@ export const CartModal: FC<Props> = ({
             </div>
             <Box className="flex flex-row w-full items-center justify-between px-[20px] mt-auto" sx={bottomBoxStyle}>
               <div>
-                <Typography gutterBottom variant="h5" component="div" sx={{color: "#313131",fontSize: "32px", fontFamily: "Almarai"}}>
+                <Typography gutterBottom variant="h5" component="div" 
+                            sx={{color: "#313131",fontSize: "32px", fontFamily: "Almarai"}}>
                   ${cartPrice}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{color: "#A8ACB8",fontSize: "14px", fontFamily: "Almarai"}}>
+                <Typography variant="body2" color="text.secondary" 
+                            sx={{color: "#A8ACB8",fontSize: "14px", fontFamily: "Almarai"}}>
                   Total Price
                 </Typography>
               </div>
@@ -140,3 +142,4 @@ export const CartModal: FC<Props> = ({
     </div>
   );
 }
+export default CartModal;

@@ -22,7 +22,7 @@ type categoryProps = {
 interface Props {
   handleClick(id:number): void;
 }
-export const CategoryScroll:FC<Props> = ({
+const CategoryScroll:FC<Props> = ({
   handleClick,
 })=>{
   const [result, setResult] = useState<categoryProps[]>([]);
@@ -46,7 +46,8 @@ export const CategoryScroll:FC<Props> = ({
         {result.map((value, index) => {
           return (
             <div key={index}>
-              <CategoryCard handleClick ={()=>handleWrapper(value.id)} text = {value.name} imageSrc= {imageSrc[index]} isActive={value.id==currentCategory}/>
+              <CategoryCard handleClick ={()=>handleWrapper(value.id)} text = {value.name} 
+                            imageSrc= {imageSrc[index]} isActive={value.id==currentCategory}/>
             </div>
           );
         })}
@@ -54,3 +55,4 @@ export const CategoryScroll:FC<Props> = ({
 
   );
 }
+export default CategoryScroll;

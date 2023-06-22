@@ -4,10 +4,11 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import cross from "../images/Vector.png";
 import check from "../images/check.png";
-import { ImageButton } from '../components/ImageButton';
+import ImageButton from '../components/ImageButton';
 import { FC } from "react";
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { clearCart, getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
+
 const mainBoxStyle = {
   position: 'absolute',
   alignItems: 'center',
@@ -31,7 +32,7 @@ interface Props {
   isOpen: boolean;
 }
 
-export const CheckoutModal: FC<Props> = ({
+const CheckoutModal: FC<Props> = ({
     handleCheckoutClose,
     isOpen,
   })=> {
@@ -51,20 +52,25 @@ export const CheckoutModal: FC<Props> = ({
             <div  className='flex flex-col items-center'>
               <img className = "h-[132px] w-[132px]" src ={check} />
               <div className='p-4 flex-col'>
-                <Typography id="modal-modal-title" variant="h6" component="h2" sx={{fontFamily: 'Almarai',fontStyle:"normal", fontWeight: "700", fontSize: "32px"}}>
+                <Typography id="modal-modal-title" variant="h6" component="h2" 
+                            sx={{fontFamily: 'Almarai',fontStyle:"normal", fontWeight: "700", fontSize: "32px"}}>
                   Congratulations!
                 </Typography>
-                <Typography id="modal-modal-description"  sx={{ mt: 2, fontFamily: 'Almarai',fontStyle:"normal", fontWeight: "400", fontSize: "14px", textAlign: "center", display: "flex", flexDirection:'column' }} component="span">
+                <Typography id="modal-modal-description" component="span" 
+                            sx={{ mt: 2, fontFamily: 'Almarai',fontStyle:"normal", fontWeight: "400", 
+                                  fontSize: "14px", textAlign: "center", display: "flex", flexDirection:'column'}}>
                   Your order has successfully placed<br/> and started processing.
                 </Typography>
               </div>
             </div>
             <Box className="w-[308px]" sx={bottomBoxStyle}>
               <div className="w-full h-full flex flex-row w-full justify-center items-center justify-between px-[20px]">
-                <Typography  component="div" sx={{fontFamily: 'Almarai',fontStyle:"normal", fontWeight: "400", fontSize: "14px",}}>
+                <Typography component="div" 
+                            sx={{fontFamily: 'Almarai',fontStyle:"normal", fontWeight: "400", fontSize: "14px",}}>
                   TOTAL
                 </Typography>
-                <Typography  sx={{color:"#3BBEB6", fontFamily: 'Almarai',fontStyle:"normal", fontWeight: "400", fontSize: "32px",}}>
+                <Typography  sx={{color:"#3BBEB6", fontFamily: 'Almarai',
+                                  fontStyle:"normal", fontWeight: "400", fontSize: "32px"}}>
                   ${cartPrice}
                 </Typography>
               </div>
@@ -81,3 +87,4 @@ export const CheckoutModal: FC<Props> = ({
     </div>
   );
 }
+export default CheckoutModal;

@@ -1,11 +1,11 @@
 import React, { ChangeEvent } from 'react';
 import { useState, useEffect } from 'react';
-import {Header} from '../components/Header';
+import Header from '../components/Header';
 import ImageCarousell from '../components/Carousel';
-import {CategoryScroll} from '../components/CategoryScroll';
+import CategoryScroll from '../components/CategoryScroll';
 import ProductGrid from '../components/ProductGrid';
-import {CartModal} from '../modals/CartModal';
-import {CheckoutModal} from '../modals/CheckoutModal';
+import CartModal from '../modals/CartModal';
+import CheckoutModal from '../modals/CheckoutModal';
 import { addItemToCart, deleteItemFromCart, editItemCount, getCartTotalPrice, selectCart } from '../redux/slices/cartSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { generatePath, useNavigate } from 'react-router-dom';
@@ -107,15 +107,33 @@ export default function HomePage(){
 
   return(
     <div className="w-full h-full flex flex-col items-center">
-      <Header handleSearchChange={handleSearchChange} handleCartOpen={handleCartOpen}/>
+      <Header 
+        handleSearchChange={handleSearchChange} 
+        handleCartOpen={handleCartOpen}/>
       <div className = "max-w-[1015px] mt-20 flex flex-col items-center justify-center">
         <ImageCarousell/>
-        <h1 className="w-full mt-[24px] mb-[14px] text-left font-almarai font-size-[24px] font-bold text-gray-700">Categories</h1>
+        <h1 className="w-full mt-[24px] mb-[14px] text-left font-almarai font-size-[24px] font-bold text-gray-700">
+          Categories
+        </h1>
         <CategoryScroll handleClick={handleCategoryChange}/>
-        <h1 className="w-full my-[14px] text-left font-almarai font-size-[24px] font-bold  text-gray-700">All products</h1>
-        <ProductGrid products={products} cartAdd={cartAdd} cartDelete = {cartDelete} handleProductRedirect={handleProductRedirect} hasNextPage={hasNextPage} handlePageNumberChange={handlePageNumberChange}/>
-        <CartModal handleCartClose={handleCartClose} handleCheckoutOpen={handleCheckoutOpen} isOpen = {openCart} cartItemCountModify={cartItemCountModify}/>
-        <CheckoutModal handleCheckoutClose={handleCheckoutClose} isOpen = {openCheckout}/>
+        <h1 className="w-full my-[14px] text-left font-almarai font-size-[24px] font-bold  text-gray-700">
+          All products
+        </h1>
+        <ProductGrid 
+          products={products} 
+          cartAdd={cartAdd} 
+          cartDelete = {cartDelete} 
+          handleProductRedirect={handleProductRedirect} 
+          hasNextPage={hasNextPage} 
+          handlePageNumberChange={handlePageNumberChange}/>
+        <CartModal 
+          handleCartClose={handleCartClose} 
+          handleCheckoutOpen={handleCheckoutOpen} 
+          isOpen = {openCart} 
+          cartItemCountModify={cartItemCountModify}/>
+        <CheckoutModal 
+          handleCheckoutClose={handleCheckoutClose} 
+          isOpen = {openCheckout}/>
       </div>
     </div>
   );

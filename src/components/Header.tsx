@@ -3,7 +3,7 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from '@mui/material/Box';
 import Toolbar from "@mui/material/Toolbar";
-import {StyledButton} from '../components/StyledButton';
+import StyledButton from '../components/StyledButton';
 import IconButton from "@mui/material/IconButton";
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
@@ -13,10 +13,10 @@ import linkupLogo from "../images/logo.png";
 import searchIcon from "../images/Search.png";
 import cartIcon from "../images/Cart.png";
 import { useNavigate } from 'react-router-dom';
-import { ChangeEventHandler, FC, useMemo } from "react";
+import { ChangeEventHandler, FC } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { selectCart } from "../redux/slices/cartSlice";
-import { clearUserData, getIsUserAuthorized, selectUser } from "../redux/slices/userSlice";
+import { clearUserData, getIsUserAuthorized } from "../redux/slices/userSlice";
 import userAvatar from "../images/tempSrc/UserAvatar.png"
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
@@ -63,7 +63,7 @@ interface Props {
   handleSearchChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   handleCartOpen():void;
 }
-export const Header: FC<Props> = ({
+const Header: FC<Props> = ({
     handleSearchChange,
     handleCartOpen,
   })=> {
@@ -75,7 +75,7 @@ export const Header: FC<Props> = ({
   return (
     <div className="sticky top-0 z-40 h-[68px]">
       <AppBar  sx={{backgroundColor:"white", }}>
-        <Toolbar className="lg:mx-[277px] md:mx-[150px] sm:mx-[100px] flex flex-row  items-center justify-center space-x-20">
+        <Toolbar className="lg:mx-[277px] md:mx-[150px] sm:mx-[100px] flex items-center justify-center space-x-20">
           <img className='w-[48px] h-[48px]' src={linkupLogo} onClick={()=>{navigate('/home-page');}}/>
           <Search sx={{ flexGrow: 1 }}>
             <SearchIconWrapper>
@@ -120,3 +120,5 @@ export const Header: FC<Props> = ({
     </div>
   );
 }
+
+export default Header;

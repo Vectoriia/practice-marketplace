@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { FC } from "react";
 import ArrowIcon from "../images/arrowButton.png"
@@ -21,12 +21,11 @@ interface Props {
   type?: "button" | "submit" | "reset";
   className?: string;
 }
-export const StyledIconButton: FC<Props> = ({
+const StyledIconButton: FC<Props> = ({
    handleClick,
    text,
    type,
-   className,
-   ...props
+   className
  }) => (
     <div className=''>
       <ColorButton 
@@ -44,3 +43,5 @@ export const StyledIconButton: FC<Props> = ({
       </ColorButton>
     </div>
 );
+
+export default StyledIconButton;

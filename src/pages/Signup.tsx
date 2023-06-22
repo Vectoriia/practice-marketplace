@@ -2,9 +2,9 @@ import React from 'react';
 import '../App.css';
 import '../index';
 import {Link} from 'react-router-dom';
-import { StyledTextField } from '../components/StyledTextField';
-import {StyledButton} from '../components/StyledButton';
-import { ImageButton } from '../components/ImageButton';
+import  StyledTextField from '../components/StyledTextField';
+import StyledButton from '../components/StyledButton';
+import ImageButton from '../components/ImageButton';
 import signupImage from "../images/pexels-karolina-grabowska-4466208 копія 2.png";
 import cross from "../images/Vector.png";
 import {useFormik  } from 'formik';
@@ -129,8 +129,11 @@ export default function SignupPage() {
             value={formik.values.email}
             type ="default"
           />
-          {formik.errors.email && formik.touched.email &&
-          <div className='text-red-700'>{formik.errors.email}</div>}
+          {formik.errors.email && 
+          formik.touched.email &&
+          <div className='text-red-700'>
+            {formik.errors.email}
+          </div>}
           <StyledTextField
             className = "mt-[15px]"
             placeholder="Password"
@@ -138,7 +141,11 @@ export default function SignupPage() {
             value={formik.values.password}
             type ="password"
           />
-          {formik.errors.password && formik.touched.password && <div className='text-red-700'>{formik.errors.password}</div>}
+          {formik.errors.password && 
+          formik.touched.password && 
+          <div className='text-red-700'>
+            {formik.errors.password}
+          </div>}
           <StyledTextField
             className = "mt-[15px]"
             placeholder="Confirm password"
@@ -146,7 +153,11 @@ export default function SignupPage() {
             value={formik.values.passwordConfirm}
             type ="password"
           />
-          {formik.errors.passwordConfirm && formik.touched.passwordConfirm && <div className='text-red-700'>{formik.errors.passwordConfirm}</div>}
+          {formik.errors.passwordConfirm && 
+          formik.touched.passwordConfirm && 
+          <div className='text-red-700'>
+            {formik.errors.passwordConfirm}
+          </div>}
           <StyledButton text='Next' type = "submit" handleClick={formik.handleSubmit} className='md:h-14' marginTop='34px'/>
         </div>
         <div className='flex flex-col'>

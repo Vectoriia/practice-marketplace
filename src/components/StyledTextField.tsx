@@ -11,34 +11,35 @@ interface Props {
   className?: string;
 }
 
-export const StyledTextField: FC<Props> = ({
+const StyledTextField: FC<Props> = ({
    onChange, 
    placeholder,
    value,
    type,
-   className,
-   ...props
+   className
  }) => (
-     <TextField
-          id="outlined-multiline-flexible"
-          placeholder= {placeholder}
-          value={value}
-          onChange={onChange}
-          type={type}
-          InputProps={{ 
-            sx: {
-              borderRadius: '40px', 
-              backgroundColor: '#A8ACB81A', 
-              borderColor: '#A8ACB81A',
-              border: 'none',
-              'fieldset': {
-                border: 'none',
-              },
-              '&:hover fieldset': {
-                border: 'none',
-              },
-            },
-            className: className,
-          }}
-        />
+  <TextField
+      id="outlined-multiline-flexible"
+      placeholder= {placeholder}
+      value={value}
+      onChange={onChange}
+      type={type}
+      InputProps={{ 
+        sx: {
+          borderRadius: '40px', 
+          backgroundColor: '#A8ACB81A', 
+          borderColor: '#A8ACB81A',
+          border: 'none',
+          'fieldset': {
+            border: 'none',
+          },
+          '&:hover fieldset': {
+            border: 'none',
+          },
+        },
+        className: className,
+      }}
+    />
  );
+
+ export default StyledTextField;

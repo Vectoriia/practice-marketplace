@@ -6,12 +6,11 @@ interface Props {
   alt: string;
   className?: string; 
 }
-export const ImageButton: FC<Props> = ({
+const ImageButton: FC<Props> = ({
    handleClick,
    alt,
    src,
-   className,
-   ...props
+   className
  }) => (
     <button 
       onClick={handleClick}
@@ -20,3 +19,4 @@ export const ImageButton: FC<Props> = ({
     </button>
 );
 
+export default ImageButton;

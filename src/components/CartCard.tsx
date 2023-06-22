@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import { ImageButton } from '../components/ImageButton';
+import ImageButton from '../components/ImageButton';
 import cross from "../images/Vector.png";
 import { CartItemInfo } from '../pages/HomePage';
 import { FC } from 'react';
@@ -14,7 +14,7 @@ interface Props {
   cartItemCountModify(id: number, operator: number):void;
   item: CartItemInfo;
 }
-export const CartCard: FC<Props> = ({
+const CartCard: FC<Props> = ({
     cartItemCountModify,
     item,
   })=>
@@ -26,7 +26,8 @@ export const CartCard: FC<Props> = ({
         <div className='w-[480px] h-[116px] flex flex-row justify-stretch'>
           <img src = {item.imageURL} className='p-[20px] '/>
           <div className = "flex flex-col justify-center ">
-            <Typography gutterBottom variant="h5" component="div" sx={{color: "#313131",fontSize: "14px", fontFamily: "Almarai",fontWeight: "700"}}>
+            <Typography gutterBottom variant="h5" component="div" sx={{color: "#313131",fontSize: "14px", 
+                                                                  fontFamily: "Almarai",fontWeight: "700"}}>
               {item.name}
             </Typography>
             <Typography variant="body2"  sx={{color: "#3BBEB6",fontSize: "14px", fontFamily: "Almarai",fontWeight: "700"}}>
@@ -51,3 +52,4 @@ export const CartCard: FC<Props> = ({
     
   );
 }
+export default CartCard;
