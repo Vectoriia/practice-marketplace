@@ -16,8 +16,6 @@ code {
     monospace;
 }
 
-@media (max-width: 900px) {
-  #root {
-    width: max-content;
-  }
+#root{
+  width: 100%;
 }

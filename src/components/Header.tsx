@@ -1,28 +1,27 @@
-import * as React from "react";
-  
-import AppBar from "@mui/material/AppBar";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from "@mui/material/Toolbar";
+import Toolbar from '@mui/material/Toolbar';
 import StyledButton from '../components/StyledButton';
-import IconButton from "@mui/material/IconButton";
+import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 import { common } from '@mui/material/colors';
 import Badge from '@mui/material/Badge';
-import linkupLogo from "../images/logo.png";
-import searchIcon from "../images/Search.png";
-import cartIcon from "../images/Cart.png";
+import linkupLogo from '../images/logo.png';
+import searchIcon from '../images/Search.png';
+import cartIcon from '../images/Cart.png';
 import { useNavigate } from 'react-router-dom';
-import { ChangeEventHandler, FC } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { selectCart } from "../redux/slices/cartSlice";
-import { clearUserData, getIsUserAuthorized } from "../redux/slices/userSlice";
-import userAvatar from "../images/tempSrc/UserAvatar.png"
+import { ChangeEventHandler, FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { selectCart } from '../redux/slices/cartSlice';
+import { clearUserData, getIsUserAuthorized } from '../redux/slices/userSlice';
+import userAvatar from '../images/tempSrc/UserAvatar.png';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: "40px",
+  borderRadius: '40px',
   color: theme.palette.common.black,
   backgroundColor: alpha(theme.palette.common.black, 0.08),
   '&:hover': {
@@ -60,13 +59,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 interface Props {
-  handleSearchChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  handleCartOpen():void;
+  handleSearchChange: ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  >;
+  handleCartOpen(): void;
 }
-const Header: FC<Props> = ({
-    handleSearchChange,
-    handleCartOpen,
-  })=> {
+const Header: FC<Props> = ({ handleSearchChange, handleCartOpen }) => {
   const cart = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -74,12 +72,18 @@ const Header: FC<Props> = ({
   const isUserAuthorised = useAppSelector(getIsUserAuthorized);
   return (
     <div className="sticky top-0 z-40 h-[68px]">
-      <AppBar  sx={{backgroundColor:"white", }}>
-        <Toolbar className="lg:mx-[277px] md:mx-[150px] sm:mx-[100px] flex items-center justify-center space-x-20">
-          <img className='w-[48px] h-[48px]' src={linkupLogo} onClick={()=>{navigate('/home-page');}}/>
+      <AppBar sx={{ backgroundColor: 'white' }}>
+        <Toolbar className="xl:mx-[290px] flex items-center justify-center">
+          <img
+            className="w-[48px] h-[48px] mr-2"
+            src={linkupLogo}
+            onClick={() => {
+              navigate('/home-page');
+            }}
+          />
           <Search sx={{ flexGrow: 1 }}>
             <SearchIconWrapper>
-              <img className = "w-[15px] h-[15px]" src={searchIcon} />
+              <img className="w-[15px] h-[15px]" src={searchIcon} />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
@@ -89,36 +93,54 @@ const Header: FC<Props> = ({
           </Search>
           <div className="flex flex-row sm:space-x-4">
             <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-              <IconButton aria-label="show amount of goods" color="inherit" onClick={handleCartOpen} >
-                <Badge badgeContent={cart.length} color="error"  anchorOrigin={{ vertical: 'top', horizontal: 'left', }}>
-                  <img className='w-[24px] h-[24px]' src={cartIcon} />
+              <IconButton
+                aria-label="show amount of goods"
+                color="inherit"
+                onClick={handleCartOpen}
+              >
+                <Badge
+                  badgeContent={cart.length}
+                  color="error"
+                  anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                >
+                  <img className="w-[24px] h-[24px]" src={cartIcon} />
                 </Badge>
               </IconButton>
             </Box>
-            {isUserAuthorised? 
-              <div className = "flex flex-row border-[1px] border-solid border-gray-700 rounded-[50px] w-[73px] h-[42px] items-center justify-center"
-                  onClick = {()=>{
-                    dispatch(clearUserData());
-                  }}>
-                <DensityMediumIcon sx={{ color: common.black }}/>
-                <img className = "w-[32px] h-[32px]" src = {userAvatar} />
+            {isUserAuthorised ? (
+              <div
+                className="flex flex-row border-[1px] border-solid border-gray-700 rounded-[50px] w-[73px] h-[42px] items-center justify-center"
+                onClick={() => {
+                  dispatch(clearUserData());
+                }}
+              >
+                <DensityMediumIcon sx={{ color: common.black }} />
+                <img className="w-[32px] h-[32px]" src={userAvatar} />
               </div>
-              :<>
-                <StyledButton text='Login' type = "button" styleType="white"
-                  handleClick={()=>{
-                  navigate('/signin');
-                }} />
-                <StyledButton text='Sign up' type = "button" 
-                  handleClick={()=>{
-                  navigate('/signup');
-                }} />
+            ) : (
+              <>
+                <StyledButton
+                  text="Login"
+                  type="button"
+                  styleType="white"
+                  handleClick={() => {
+                    navigate('/signin');
+                  }}
+                />
+                <StyledButton
+                  text="Sign up"
+                  type="button"
+                  handleClick={() => {
+                    navigate('/signup');
+                  }}
+                />
               </>
-            }
+            )}
           </div>
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
 
 export default Header;

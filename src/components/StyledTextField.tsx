@@ -1,6 +1,5 @@
 import { TextField } from '@mui/material';
-
-import React, { FC } from "react";
+import React, { FC } from 'react';
 import { ChangeEventHandler } from 'react';
 
 interface Props {
@@ -12,34 +11,34 @@ interface Props {
 }
 
 const StyledTextField: FC<Props> = ({
-   onChange, 
-   placeholder,
-   value,
-   type,
-   className
- }) => (
+  onChange,
+  placeholder,
+  value,
+  type,
+  className,
+}) => (
   <TextField
-      id="outlined-multiline-flexible"
-      placeholder= {placeholder}
-      value={value}
-      onChange={onChange}
-      type={type}
-      InputProps={{ 
-        sx: {
-          borderRadius: '40px', 
-          backgroundColor: '#A8ACB81A', 
-          borderColor: '#A8ACB81A',
+    id="outlined-multiline-flexible"
+    placeholder={placeholder}
+    value={value}
+    onChange={onChange}
+    type={type}
+    InputProps={{
+      sx: {
+        borderRadius: '40px',
+        backgroundColor: '#A8ACB81A',
+        borderColor: '#A8ACB81A',
+        border: 'none',
+        fieldset: {
           border: 'none',
-          'fieldset': {
-            border: 'none',
-          },
-          '&:hover fieldset': {
-            border: 'none',
-          },
         },
-        className: className,
-      }}
-    />
- );
+        '&:hover fieldset': {
+          border: 'none',
+        },
+      },
+      className: className,
+    }}
+  />
+);
 
- export default StyledTextField;
+export default StyledTextField;

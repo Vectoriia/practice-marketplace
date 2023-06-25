@@ -1,11 +1,11 @@
 import React from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { Paper } from '@mui/material';
-import { FC } from "react";
-import carouselImage1 from "../images/Carousel1.png";
-import carouselImage2 from "../images/Carousel2.jpg";
-import carouselImage3 from "../images/Carousel3.jpg";
+import { FC } from 'react';
+import carouselImage1 from '../images/Carousel1.png';
+import carouselImage2 from '../images/Carousel2.jpg';
+import carouselImage3 from '../images/Carousel3.jpg';
 
 export default function ImageCarousell() {
   const items = [
@@ -24,8 +24,8 @@ export default function ImageCarousell() {
   ];
 
   return (
-    <div className='w-full -mb-5'>
-      <Carousel infiniteLoop = {true} swipeable = {true} showThumbs={false}>
+    <div className="w-full -mb-5">
+      <Carousel infiniteLoop={true} swipeable={true} showThumbs={false}>
         {items.map((item, i) => (
           <Item key={i} {...item} />
         ))}
@@ -37,10 +37,10 @@ interface ItemProps {
   src: string;
   alt: string;
 }
-const Item: FC<ItemProps> = ({src, alt}) => {
+const Item: FC<ItemProps> = ({ src, alt }) => {
   return (
-    <Paper sx={{ border: 'none', boxShadow: "none"  }}>
-      <img className='rounded-[20px]' src={src} alt = {alt} />
+    <Paper sx={{ border: 'none', boxShadow: 'none' }}>
+      <img className="rounded-[20px]" src={src} alt={alt} />
     </Paper>
   );
 };

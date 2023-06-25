@@ -15,26 +15,33 @@ const CategoryCard: React.FC<Props> = ({
   text,
   imageSrc,
   isActive,
-})=>
-{
-  return(
-    <Card className="min-w-[152px]" sx={{ width: 132, color: isActive?"#37AFA8":"black" }} 
-          style={{ border: "none", boxShadow: "none" }}>
+}) => {
+  return (
+    <Card
+      className="min-w-[152px]"
+      sx={{ width: 132, color: isActive ? '#37AFA8' : 'black' }}
+      style={{ border: 'none', boxShadow: 'none' }}
+    >
       <CardActionArea onClick={handleClick}>
-        <CardMedia
-          component="img"
-          image={imageSrc}
-          alt={text}
-        />
+        <CardMedia component="img" image={imageSrc} alt={text} />
         <CardContent>
-          <Typography gutterBottom component="div" sx={{fontFamily:"Amari", fontWeight: "400", 
-                                                        fontSize: "14px", lineHeight: "16px", fontStyle: "normal"}}>
+          <Typography
+            gutterBottom
+            component="div"
+            sx={{
+              fontFamily: 'Amari',
+              fontWeight: '400',
+              fontSize: '14px',
+              lineHeight: '16px',
+              fontStyle: 'normal',
+            }}
+          >
             {text}
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
-    );
-}
+  );
+};
 
 export default CategoryCard;
